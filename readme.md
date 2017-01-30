@@ -1,5 +1,5 @@
-#Le Triste Moutton
-###Journal Blog
+#Senord
+###Jeu avec tree.js et webGL
 ## Conventions
 - Tab Size:4 dans sublime texte
 - On travail avec la syntaxe en camelCase
