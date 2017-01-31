@@ -13,13 +13,14 @@ let renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
-let pos = {x:10, y:10, z:0};
-let size = {x:160, y:160, z:10};
-let angle = {x:0, y:0, z:0};
-let enemy = new Enemy(pos, size, angle, 100);
+game.init();
 
 function render() {
    requestAnimationFrame(render);
    renderer.render(scene, camera);
+   game.update();
+   game.render();
+
 }
 render();
+

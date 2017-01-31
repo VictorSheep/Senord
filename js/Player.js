@@ -33,13 +33,9 @@ class Player{
 	moveDown(){
 		this.velocity.y=this.speed*-1;
 	}
-	init(scene){
+	init(){
 		scene.add(this.obj);
 		this.obj.position.set(this.pos.x,this.pos.y,0);
 		this.obj.rotation.set(this.angle.x,this.angle.y,this.angle.z);
 	}
 }
-
-let ship = new Player({x:0,y:0},100,{x:90,y:90,z:0},{width:100,height:100,depth:100},10);
-console.log(ship);
-ship.init(scene);
