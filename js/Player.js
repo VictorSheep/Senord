@@ -18,6 +18,9 @@ class Player{
 		this.geometry 	= new THREE.BoxGeometry( this.size.width, this.size.height, this.size.depth );
 		this.material 	= new THREE.MeshBasicMaterial( {color: 0x0000ff} );
 		this.obj	  	= new THREE.Mesh( this.geometry, this.material );
+
+		/* init */
+		this.init();
 	}
 
 	/* Methodes */
