@@ -43,14 +43,14 @@ class Player{
 	}
 	update(){
 		this.pos.x+=this.velocity.x;
-		this.pos.y+=yhis.velocity.y;
+		this.pos.y+=this.velocity.y;
 
 		this.angle.x+=this.rotation.x;
-		this.angle.y+=yhis.rotation.y;
-		this.angle.z+=yhis.rotation.z;
+		this.angle.y+=this.rotation.y;
+		this.angle.z+=this.rotation.z;
 	}
 	render(){
-		this.obj.position.set(this.pos.x,this.pos.y);
+		this.obj.position.set(this.pos.x,this.pos.y,this.pos.z);
 
 		this.obj.rotation.set(this.angle.x,this.angle.y,this.angle.z);
 	}
