@@ -12,11 +12,11 @@ let inputs = {
     
     onKeyDown: function(event) {
         this._pressed[event.keyCode] = true;
-        console.log(this._pressed[event]);
     },
     
     onKeyUp: function(event) {
         delete this._pressed[event.keyCode];
+
     }
 };
 

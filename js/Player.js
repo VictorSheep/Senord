@@ -36,8 +36,21 @@ class Player{
 	moveDown(){
 		this.velocity.y=this.speed*-1;
 	}
+
+	stopLeft(){
+		this.velocity.x=0;
+	}
+	stopRight(){
+		this.velocity.x=0;
+	}
+	stopUp(){
+		this.velocity.y=0;
+	}
+	stopDown(){
+		this.velocity.y=0;
+	}
+
 	init(){
-		console.log("INIT DU PLAYER");
 		scene.add(this.obj);
 		this.obj.position.set(this.pos.x,this.pos.y,0);
 		this.obj.rotation.set(this.angle.x,this.angle.y,this.angle.z);
@@ -49,6 +62,9 @@ class Player{
 		this.angle.x+=this.rotation.x;
 		this.angle.y+=this.rotation.y;
 		this.angle.z+=this.rotation.z;
+
+		this.velocity.x=0;
+		this.velocity.y=0;
 	}
 	render(){
 		this.obj.position.set(this.pos.x,this.pos.y,this.pos.z);
