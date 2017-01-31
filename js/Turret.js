@@ -1,5 +1,5 @@
 class Turret{
-	constructor(time_max, life_max, angle, size){
+	constructor(pos, time_max, angle, size){
 		/* Position */
 		this.pos		= pos;
 		this.angle      = angle;
@@ -7,7 +7,6 @@ class Turret{
 
 		/* Mouvements */
 		this.rotation	= {x:0, y:0, z:0};		
-		this.velocity	= {x:0, y:0};
 
 		/* Caracteristiques */
 		this.time 		= time_max;
@@ -24,6 +23,15 @@ class Turret{
 	init(scene){
 		scene.add(this.obj);
 		this.obj.position.set(this.pos.x,this.pos.y,0);
+		this.obj.rotation.set(this.angle.x,this.angle.y,this.angle.z);
+	}
+
+	update(){
+		this.angle.x+=this.rotation.x;
+		this.angle.y+=yhis.rotation.y;
+		this.angle.z+=yhis.rotation.z;
+	}
+	render(){
 		this.obj.rotation.set(this.angle.x,this.angle.y,this.angle.z);
 	}
 }

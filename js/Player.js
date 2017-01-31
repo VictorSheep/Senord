@@ -38,8 +38,17 @@ class Player{
 		this.obj.position.set(this.pos.x,this.pos.y,0);
 		this.obj.rotation.set(this.angle.x,this.angle.y,this.angle.z);
 	}
-}
+	update(){
+		this.pos.x+=this.velocity.x;
+		this.pos.y+=yhis.velocity.y;
 
-let ship = new Player({x:0,y:0},100,{x:90,y:90,z:0},{width:100,height:100,depth:100},10);
-console.log(ship);
-ship.init(scene);
+		this.angle.x+=this.rotation.x;
+		this.angle.y+=yhis.rotation.y;
+		this.angle.z+=yhis.rotation.z;
+	}
+	render(){
+		this.obj.position.set(this.pos.x,this.pos.y);
+
+		this.obj.rotation.set(this.angle.x,this.angle.y,this.angle.z);
+	}
+}
