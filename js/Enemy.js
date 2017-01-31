@@ -3,6 +3,7 @@ class Enemy {
 		/* Caracteristiques */
 		this.life_max 	= life_max;
 		this.life		= life_max;
+		this.damage		= 10;
 
 		/* Position objet */
 		this.pos 		= pos;
@@ -29,6 +30,8 @@ class Enemy {
 
 	update(player){
 		/* Mise à jour des positions */
+		this.velocity.x = (player.x-this.pos.x)/100;
+		this.velocity.y = (player.y-this.pos.y)/100;
 		this.pos.x += this.velocity.x;
 		this.pos.y += this.velocity.y;
 
