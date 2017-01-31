@@ -4,7 +4,7 @@ class Enemy {
 		this.life_max 	= life_max;
 		this.life		= life_max;
 		this.damage		= 10;
-		this.range 		= 100;
+		this.range		= 100;
 
 		/* Position objet */
 		this.pos 		= pos;
@@ -12,7 +12,7 @@ class Enemy {
 		this.angle		= angle;
 
 		/* Mouvements */
-		this.rotation	= {x:0, y:0, z:10};
+		this.rotation	= {x:0, y:0, z:-200};
 		this.velocity	= {x:1, y:0};
 		this.speed 		= 0;
 
@@ -31,11 +31,10 @@ class Enemy {
 
 	update(player){
 		/* Mise à jour des positions */
-		this.velocity.x = (player.x-this.pos.x)/100;
-		this.velocity.y = (player.y-this.pos.y)/100;
-
-		if (abs(player.x-this.pos.x) < this.range) { this.velocity.x = 0; }
-		if (abs(player.y-this.pos.y) < this.range) { this.velocity.y = 0; }
+		this.velocity.x += (player.x-this.pos.x)/1000;
+		this.velocity.y += (player.y-this.pos.y)/900;
+		this.velocity.x = this.velocity.x/1.05;
+		this.velocity.y = this.velocity.y/1.05;
 
 		this.pos.x += this.velocity.x;
 		this.pos.y += this.velocity.y;
