@@ -8,7 +8,7 @@ var game={
 	},
 
 	init(){
-		this.elements.player.push( new Player({x:0,y:0,z:0},100,{x:0,y:0,z:0},{width:100,height:100,depth:100},10) );
+		this.elements.player.push( new Player({x:0,y:0,z:0},100,{x:0,y:0,z:0},{width:100,height:100,depth:100},1) );
 
 		let pos = {x:-600, y:300, z:0};
 		let size = {x:60, y:30, z:10};
