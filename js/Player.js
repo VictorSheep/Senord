@@ -25,29 +25,16 @@ class Player{
 
 	/* Methodes */
 	moveLeft(){
-		this.velocity.x=this.speed*-1;
+		this.velocity.x+=this.speed*-1;
 	}
 	moveRight(){
-		this.velocity.x=this.speed;
+		this.velocity.x+=this.speed;
 	}
 	moveUp(){
-		this.velocity.y=this.speed;
+		this.velocity.y+=this.speed;
 	}
 	moveDown(){
-		this.velocity.y=this.speed*-1;
-	}
-
-	stopLeft(){
-		this.velocity.x=0;
-	}
-	stopRight(){
-		this.velocity.x=0;
-	}
-	stopUp(){
-		this.velocity.y=0;
-	}
-	stopDown(){
-		this.velocity.y=0;
+		this.velocity.y+=this.speed*-1;
 	}
 
 	init(){
@@ -63,8 +50,8 @@ class Player{
 		this.angle.y+=this.rotation.y;
 		this.angle.z+=this.rotation.z;
 
-		this.velocity.x=0;
-		this.velocity.y=0;
+		this.velocity.x=this.velocity.x/1.05;
+		this.velocity.y=this.velocity.y/1.05;
 	}
 	render(){
 		this.obj.position.set(this.pos.x,this.pos.y,this.pos.z);
