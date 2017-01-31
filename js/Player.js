@@ -51,7 +51,7 @@ class Player{
 		this.angle.z+=this.rotation.z;
 	}
 	render(){
-		this.obj.position.set(this.pos.x,this.pos.y,0);
+		this.obj.position.set(this.pos.x,this.pos.y,this.pos.z);
 
 		this.obj.rotation.set(this.angle.x,this.angle.y,this.angle.z);
 	}
