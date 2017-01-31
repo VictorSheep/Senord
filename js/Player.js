@@ -50,8 +50,11 @@ class Player{
 		this.angle.y+=this.rotation.y;
 		this.angle.z+=this.rotation.z;
 
-		this.velocity.x=this.velocity.x/1.05;
-		this.velocity.y=this.velocity.y/1.05;
+		// Direction du "regard" du vaisseau
+		this.angle.z = Math.atan(this.velocity.y/this.velocity.x);
+
+		this.velocity.x=this.velocity.x/1.06;
+		this.velocity.y=this.velocity.y/1.06;
 	}
 	render(){
 		this.obj.position.set(this.pos.x,this.pos.y,this.pos.z);
