@@ -10,10 +10,11 @@ class Enemy {
 		this.angle		= angle;
 
 		/* Mouvements */
-		this.rotation	= {x:0, y:0, z:0};
+		this.rotation	= {x:0, y:0, z:4};
 		this.velocity	= {x:1, y:0};
 		this.speed 		= 0;
 
+		/* Initialisation de l'Enemy */
 		this.init();
 	}
 
@@ -26,13 +27,14 @@ class Enemy {
 		scene.add( this.obj );
 	}
 
-	update(){
+	update(player){
 		/* Mise à jour des positions */
 		this.pos.x += this.velocity.x;
 		this.pos.y += this.velocity.y;
-		this.angle.x += this.rotation.x;
-		this.angle.y += this.rotation.y;
-		this.angle.z += this.rotation.z;
+
+		this.angle.x += this.rotation.x/(180*Math.PI);
+		this.angle.y += this.rotation.y/(180*Math.PI);
+		this.angle.z += this.rotation.z/(180*Math.PI);
 	}
 
 	render(){
