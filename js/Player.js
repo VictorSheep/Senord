@@ -15,9 +15,12 @@ class Player{
 		this.speed      	= speed;
 
 		/* Modelisation */
-		this.geometry 	= new THREE.BoxGeometry( this.size.width, this.size.height, this.size.depth );
-		this.material 	= new THREE.MeshBasicMaterial( {color: 0x0000ff, wireframe:true} );
-		this.obj	  	= new THREE.Mesh( this.geometry, this.material );
+		this.geometry 		= new THREE.BoxGeometry( this.size.width, this.size.height, this.size.depth );
+		this.material 		= new THREE.MeshBasicMaterial( {color: 0x0000ff, wireframe:true} );
+		this.obj	  		= new THREE.Mesh( this.geometry, this.material );
+		this.lifeGeometry 	= new THREE.BoxGeometry( this.life, 10, 1 );
+		this.lifeMaterial 	= new THREE.MeshBasicMaterial( {color: 0xff0000} );
+		this.lifeBarre		= new THREE.Mesh( this.lifeGeometry, this.lifeMaterial );
 
 		/* init */
 		this.init();
@@ -39,8 +42,11 @@ class Player{
 
 	init(){
 		scene.add(this.obj);
+		scene.add(this.lifeBarre);
 		this.obj.position.set(this.pos.x,this.pos.y,this.pos.z);
 		this.obj.rotation.set(this.angle.x,this.angle.y,this.angle.z);
+		this.lifeBarre.position.set(this.pos.x,this.pos.y,100);
+		this.lifeBarre.rotation.set(this.angle.x,this.angle.y,this.angle.z);
 	}
 	update(){
 		//boundaries
@@ -60,9 +66,16 @@ class Player{
 
 		this.velocity.x=this.velocity.x/1.08;
 		this.velocity.y=this.velocity.y/1.08;
+
+		//diminution de la barre de vie
+		this.lifeBarre.scale.x=this.life/100;
 	}
 	render(){
-		this.obj.position.set(this.pos.x,this.pos.y,this.pos.z);
+		this.lifeBarre.position.set(this.pos.x,this.pos.y,this.pos.z);
+
+		this.lifeBarre.rotation.set(this.angle.x,this.angle.y,Math.PI);
+
+		this.obj.position.set(this.pos.x,this.pos.y-this.size.height*1.5,this.pos.z);
 
 		this.obj.rotation.set(this.angle.x,this.angle.y,this.angle.z);
 	}
