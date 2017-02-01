@@ -10,9 +10,9 @@ class Player{
 		this.velocity	= {x:0, y:0, z:0};
 
 		/* Caracteristiques */
-		this.life 		= life_max;
-		this.life_max	= life_max;
-		this.speed      = speed;
+		this.life 			= life_max;
+		this.life_max		= life_max;
+		this.speed      	= speed;
 
 		/* Modelisation */
 		this.geometry 	= new THREE.BoxGeometry( this.size.width, this.size.height, this.size.depth );
