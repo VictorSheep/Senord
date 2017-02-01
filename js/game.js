@@ -37,27 +37,43 @@ var game={
     	if (inputs.isDown(inputs.RIGHT)) player.moveRight();
 
     	if (inputs.isDown(inputs.ACTION)){
+    		inputs._pressed[inputs.ACTION]=false;
     		for (var i = 0; i < this.elements.turret.length; i++) {
-    			turret=this.elements.turret[i];
+    			let turret=this.elements.turret[i];
     			// pick up turret 
-    			if (!turret.picked && !turret.activate) {
+    			if (!turret.picked) {
     				// calcul de distance entre turret et player
 	    			turret.dist.x = player.pos.x-turret.pos.x;
 					turret.dist.y = player.pos.y-turret.pos.y;
 					turret.dist.dir = Math.sqrt(turret.dist.x*turret.dist.x + turret.dist.y*turret.dist.y);
 					//si la tourrelle est suffisament pret on active ça methode pickUp
-					if (turret.dist.dir<player.size.width) {
+					if (turret.dist.dir<player.size.width/1.4) {
 						turret.pickUp();
 					};
 				}
 			};
     	};
     	if (inputs.isDown(inputs.C)){
+    		inputs._pressed[inputs.C]=false;
     		for (var i = 0; i < this.elements.turret.length; i++) {
-    			turret=this.elements.turret[i];
+    			let turret=this.elements.turret[i];
     			// launch turret 
 				if (turret.picked){
-    				turret.launch();
+					let isLaunchable = true;
+					for (var j = 0; j < this.elements.turret.length; j++) {
+						// calcul de distance entre la tourelle a poser et toute celle qui sont poser
+						let turret2=this.elements.turret[j];
+						if (turret2.activate) {
+	    					turret.dist.x = turret2.pos.x-turret.pos.x;
+							turret.dist.y = turret2.pos.y-turret.pos.y;
+							turret.dist.dir = Math.sqrt(turret.dist.x*turret.dist.x + turret.dist.y*turret.dist.y);
+							if (turret.dist.dir<=turret.size.radius*2) isLaunchable=false;
+						}
+					}
+					if (isLaunchable) {
+    					turret.launch();
+    				};
+    				break;
     			};
     		}
     	}
