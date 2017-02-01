@@ -15,6 +15,7 @@ class Enemy {
 		/* Mouvements */
 		this.rotation	= {x:0, y:0, z:0};
 		this.velocity	= {x:1, y:0};
+		this.adjVlocity	= {x:Math.random()*2-1, y:Math.random()*2-1};
 		this.speed 		= 0;
 
 		/* Munition */
@@ -43,8 +44,8 @@ class Enemy {
 		this.dist.y = player.y-this.pos.y;
 		this.dist.dir = Math.sqrt(this.dist.x*this.dist.x + this.dist.y*this.dist.y);
 		/* Mise à jour des positions */
-		this.velocity.x += (this.dist.x)/(Math.random()*300+800);
-		this.velocity.y += (this.dist.y)/(Math.random()*300+800);
+		this.velocity.x += (this.dist.x)/(2000) + this.adjVlocity.x/10;
+		this.velocity.y += (this.dist.y)/(2000) + this.adjVlocity.y/10;
 		this.velocity.x = this.velocity.x/1.02;
 		this.velocity.y = this.velocity.y/1.02;
 

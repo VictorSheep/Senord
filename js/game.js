@@ -9,12 +9,14 @@ var game={
 
 	init(){
 		clock= new THREE.Clock();
-		this.elements.player.push( new Player({x:0,y:0,z:0},100,{x:0,y:0,z:0},{width:70,height:40,depth:100},0.7) );
+		this.elements.player.push( new Player({x:0,y:0,z:0},100,{x:0,y:0,z:0},{width:70,height:40,depth:100},1) );
 
-		let pos = {x:-600, y:300, z:0};
-		let size = {x:60, y:30, z:10};
-		let angle = {x:0, y:0, z:0};
-		this.elements.enemy.push( new Enemy(pos, size, angle, 100) );
+		for (var i = 4; i >= 0; i--) {
+			let pos = {x:Math.random()*1200-600, y:Math.random()*600-300, z:0};
+			let size = {x:60, y:30, z:10};
+			let angle = {x:0, y:0, z:0};
+			this.elements.enemy.push( new Enemy(pos, size, angle, 100) );
+		}
 
 		this.elements.turret.push( new Turret({x:0,y:0,z:0}, 100, {x:0,y:0,z:0}, {radius:20,width:20,height:30}) );
 		this.elements.turret.push( new Turret({x:100,y:0,z:0}, 100, {x:0,y:0,z:0}, {radius:20,width:20,height:30}) );
