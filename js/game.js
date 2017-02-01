@@ -8,7 +8,6 @@ var game={
 	},
 
 	init(){
-		clock= new THREE.Clock();
 		this.elements.player.push( new Player({x:0,y:0,z:0},100,{x:0,y:0,z:0},{width:70,height:40,depth:100},0.7) );
 
 		let pos = {x:-600, y:300, z:0};
@@ -19,6 +18,8 @@ var game={
 		this.elements.turret.push( new Turret({x:0,y:0,z:0}, 100, {x:0,y:0,z:0}, {radius:20,width:20,height:30}) );
 		this.elements.turret.push( new Turret({x:100,y:0,z:0}, 100, {x:0,y:0,z:0}, {radius:20,width:20,height:30}) );
 		this.elements.turret.push( new Turret({x:0,y:100,z:0}, 100, {x:0,y:0,z:0}, {radius:20,width:20,height:30}) );
+
+		player=this.elements.player[0];
 	},
 
 	update(){
@@ -41,7 +42,7 @@ var game={
     		for (var i = 0; i < this.elements.turret.length; i++) {
     			let turret=this.elements.turret[i];
     			// pick up turret 
-    			if (!turret.picked) {
+    			if (!turret.picked && !turret.activate) {
     				// calcul de distance entre turret et player
 	    			turret.dist.x = player.pos.x-turret.pos.x;
 					turret.dist.y = player.pos.y-turret.pos.y;
