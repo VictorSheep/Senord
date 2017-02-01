@@ -18,7 +18,7 @@ class Player{
 		this.geometry 		= new THREE.BoxGeometry( this.size.width, this.size.height, this.size.depth );
 		this.material 		= new THREE.MeshBasicMaterial( {color: 0x0000ff, wireframe:true} );
 		this.obj	  		= new THREE.Mesh( this.geometry, this.material );
-		this.lifeGeometry 	= new THREE.BoxGeometry( this.life, 10, 1 );
+		this.lifeGeometry 	= new THREE.BoxGeometry( this.life/2, 5, 1 );
 		this.lifeMaterial 	= new THREE.MeshBasicMaterial( {color: 0xff0000} );
 		this.lifeBarre		= new THREE.Mesh( this.lifeGeometry, this.lifeMaterial );
 
@@ -53,7 +53,7 @@ class Player{
 		if (this.pos.x+this.velocity.x>=left_bound+this.size.height && this.pos.x+this.velocity.x<=right_bound-this.size.height) {
 			this.pos.x+=this.velocity.x;
 		};
-		if (this.pos.y+this.velocity.y>=bottom_bound+this.size.height && this.pos.y+this.velocity.y<=top_bound-this.size.height) {
+		if (this.pos.y+this.velocity.y>=bottom_bound+this.size.height*3 && this.pos.y+this.velocity.y<=top_bound-this.size.height) {
 			this.pos.y+=this.velocity.y;
 		}
 
@@ -75,7 +75,7 @@ class Player{
 
 		this.lifeBarre.rotation.set(this.angle.x,this.angle.y,Math.PI);
 
-		this.obj.position.set(this.pos.x,this.pos.y-this.size.height*1.5,this.pos.z);
+		this.obj.position.set(this.pos.x,this.pos.y-this.size.height*2,this.pos.z);
 
 		this.obj.rotation.set(this.angle.x,this.angle.y,this.angle.z);
 	}
