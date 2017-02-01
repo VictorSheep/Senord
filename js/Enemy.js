@@ -18,9 +18,8 @@ class Enemy {
 		this.speed 		= 0;
 
 		/* Munition */
-		this.bullet 	= [];
 		this.count 		= 0;
-		this.rate		= 100;
+		this.rate		= 70;
 
 		/* Initialisation de l'Enemy */
 		this.init();
@@ -54,6 +53,7 @@ class Enemy {
 
 		// Direction du "regard" du vaisseau
 		this.angle.z = Math.atan(this.dist.y/this.dist.x);
+		if(this.dist.x > 0) this.angle.z = this.angle.z + Math.PI;
 
 		this.angle.x += this.rotation.x/(180*Math.PI);
 		this.angle.y += this.rotation.y/(180*Math.PI);
@@ -72,6 +72,8 @@ class Enemy {
 
 	shoot(){
 		//console.log(this.angle.z);
-		//this.bullet.push(new Bullet(this.pos, this.angle, this.damage));
+		let pos = Object.assign({},this.pos);
+		let angle = Object.assign({},this.angle);
+		game.elements.bullet.push(new Bullet(pos, angle, this.damage, player));
 	}
 }
