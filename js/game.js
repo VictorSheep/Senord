@@ -11,7 +11,7 @@ var game={
 		clock= new THREE.Clock();
 		this.elements.player.push( new Player({x:0,y:0,z:0},100,{x:0,y:0,z:0},{width:32,height:12,depth:10},1) );
 
-		for (var i = 4; i >= 0; i--) {
+		for (var i = 2; i >= 0; i--) {
 			let pos = {x:Math.random()*1200-600, y:Math.random()*600-300, z:0};
 			let size = {x:30, y:15, z:10};
 			let angle = {x:0, y:0, z:0};

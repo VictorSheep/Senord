@@ -20,7 +20,7 @@ class Enemy {
 
 		/* Munition */
 		this.count 		= 0;
-		this.rate		= 70;
+		this.rate		= Math.random()*10+60;
 
 		/* Initialisation de l'Enemy */
 		this.init();

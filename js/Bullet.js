@@ -13,7 +13,7 @@ class Bullet{
 
 		/* Caracteristiques */
 		this.lifetime	= 100;
-		this.speed      = 10;
+		this.speed      = 8;
 
 		/* Initialisation de l'Enemy */
 		this.init();
