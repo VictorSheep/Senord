@@ -44,8 +44,8 @@ class Enemy {
 		this.dist.y = player.y-this.pos.y;
 		this.dist.dir = Math.sqrt(this.dist.x*this.dist.x + this.dist.y*this.dist.y);
 		/* Mise à jour des positions */
-		this.velocity.x += (this.dist.x)/(2000) + this.adjVlocity.x/10;
-		this.velocity.y += (this.dist.y)/(2000) + this.adjVlocity.y/10;
+		this.velocity.x += (this.dist.x)/(2000) + this.adjVlocity.x/10 + Math.random()-.5;
+		this.velocity.y += (this.dist.y)/(2000) + this.adjVlocity.y/10 + Math.random()-.5;
 		this.velocity.x = this.velocity.x/1.02;
 		this.velocity.y = this.velocity.y/1.02;
 
