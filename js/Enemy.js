@@ -1,6 +1,7 @@
 class Enemy {
 	constructor(pos, size, angle, life_max) {
 		/* Caracteristiques */
+		this.team		= 2;
 		this.life_max 	= life_max;
 		this.life		= life_max;
 		this.damage		= 10;
@@ -75,6 +76,6 @@ class Enemy {
 		//console.log(this.angle.z);
 		let pos = Object.assign({},this.pos);
 		let angle = Object.assign({},this.angle);
-		game.elements.bullet.push(new Bullet(pos, angle, this.damage, player));
+		game.elements.bullet.push(new Bullet(pos, angle, this.damage, this.team));
 	}
 }

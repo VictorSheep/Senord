@@ -10,10 +10,15 @@ class Turret{
 		this.rotation	= {x:0, y:0, z:0};		
 
 		/* Caracteristiques */
+		this.team		= 1;
 		this.time 		= time_max;
 		this.time_max	= time_max;
 		this.activate   = false;
 		this.picked     = false;
+		this.damage 	= 10;
+		/* Munition */
+		this.count 		= 0;
+		this.rate		= Math.random()*10+60;
 
 		/* Modelisation */
 		this.geometry 	= new THREE.SphereGeometry( this.size.radius, this.size.width, this.size.heigth );
@@ -39,6 +44,14 @@ class Turret{
 		}else{
 			this.pos=this.obj.position;
 		}
+
+		
+		this.count++;
+		this.count = (this.count>=1000/this.rate)? 0 : this.count;
+		// Tire
+		if(this.count==0){
+			this.shoot();			
+		}
 	}
 	render(){
 		this.obj.position.set(this.pos.x,this.pos.y,this.pos.z);
@@ -52,5 +65,10 @@ class Turret{
 	launch(){
 		this.picked=false;
 		this.activate=true;
+	}
+	shoot(){
+		let pos = Object.assign({},this.pos);
+		let angle = Object.assign({},this.angle);
+		game.elements.bullet.push(new Bullet(pos, angle, this.damage, this.team));
 	}
 }
