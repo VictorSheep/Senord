@@ -19,6 +19,8 @@ class Enemy {
 
 		/* Munition */
 		this.bullet 	= [];
+		this.count 		= 0;
+		this.rate		= 100;
 
 		/* Initialisation de l'Enemy */
 		this.init();
@@ -35,6 +37,9 @@ class Enemy {
 	}
 
 	update(player){
+		this.count++;
+		this.count = (this.count>=1000/this.rate)? 0 : this.count;
+
 		this.dist.x = player.x-this.pos.x;
 		this.dist.y = player.y-this.pos.y;
 		this.dist.dir = Math.sqrt(this.dist.x*this.dist.x + this.dist.y*this.dist.y);
@@ -55,7 +60,9 @@ class Enemy {
 		this.angle.z += this.rotation.z/(180*Math.PI);
 
 		// Tire
-		window.setInterval(this.shoot,1000);
+		if(this.count==0){
+			this.shoot();			
+		}
 	}
 
 	render(){
@@ -63,6 +70,8 @@ class Enemy {
 		this.obj.rotation.set(this.angle.x, this.angle.y, this.angle.z);
 	}
 
-	shoot(){	
+	shoot(){
+		//console.log(this.angle.z);
+		//this.bullet.push(new Bullet(this.pos, this.angle, this.damage));
 	}
 }

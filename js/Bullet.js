@@ -1,17 +1,17 @@
 class Bullet{
-	constructor(damage){
+	constructor(pos,angle,damage){
 		this.damage = damage;
 		/* Position */
 		this.pos		= pos;
 		this.angle      = angle;
-		this.size		= size;
+		this.size		= {x:10, y:5, z:5};
 
 		/* Mouvements */
 		this.velocity	= {x:0, y:0};
 
 		/* Caracteristiques */
 		this.lifetime	= 100;
-		this.speed      = speed;
+		this.speed      = 10;
 
 		/* Initialisation de l'Enemy */
 		this.init();
@@ -27,8 +27,8 @@ class Bullet{
 	}
 
 	update(){
-		this.pos.x = this.velocity.x;
-		this.pos.y = this.velocity.y;
+		this.pos.x += this.velocity.x;
+		this.pos.y += this.velocity.y;
 	}
 
 	render(){
