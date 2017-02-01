@@ -8,6 +8,7 @@ var game={
 	},
 
 	init(){
+		clock= new THREE.Clock();
 		this.elements.player.push( new Player({x:0,y:0,z:0},100,{x:0,y:0,z:0},{width:70,height:40,depth:100},0.7) );
 
 		let pos = {x:-600, y:300, z:0};
