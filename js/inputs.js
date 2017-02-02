@@ -6,7 +6,7 @@ let inputs = {
     RIGHT: 68,
     DOWN: 83,
     ACTION: 32,
-    C: 67,
+    E: 69,
     
     isDown: function(keyCode) {
         return this._pressed[keyCode];

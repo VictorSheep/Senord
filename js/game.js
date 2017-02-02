@@ -51,14 +51,14 @@ var game={
 					turret.dist.y = player.pos.y-turret.pos.y;
 					turret.dist.dir = Math.sqrt(turret.dist.x*turret.dist.x + turret.dist.y*turret.dist.y);
 					//si la tourrelle est suffisament pret on active ça methode pickUp
-					if (turret.dist.dir<player.size.width/1.4) {
+					if (turret.dist.dir<player.size.width*1.5) {
 						turret.pickUp();
 					};
 				}
 			};
     	};
-    	if (inputs.isDown(inputs.C)){
-    		inputs._pressed[inputs.C]=false;
+    	if (inputs.isDown(inputs.E)){
+    		inputs._pressed[inputs.E]=false;
     		for (var i = 0; i < this.elements.turret.length; i++) {
     			let turret=this.elements.turret[i];
     			// launch turret 
