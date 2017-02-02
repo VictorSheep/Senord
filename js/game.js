@@ -22,7 +22,6 @@ var game={
 		this.elements.turret.push( new Turret({x:100,y:0,z:0}, 100, {x:0,y:0,z:0}, {radius:10,width:20,height:30}) );
 		this.elements.turret.push( new Turret({x:0,y:100,z:0}, 100, {x:0,y:0,z:0}, {radius:10,width:20,height:30}) );
 	},
-
 	update(){
 		player=this.elements.player[0];
 		for (var prop in this.elements){
@@ -88,5 +87,5 @@ var game={
 				this.elements[prop][i].render();
 			}
 		}
-	}
+	},
 }

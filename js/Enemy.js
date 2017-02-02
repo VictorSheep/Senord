@@ -1,6 +1,7 @@
 class Enemy {
 	constructor(pos, size, angle, life_max) {
 		/* Caracteristiques */
+		this.team		= 2;
 		this.life_max 	= life_max;
 		this.life		= life_max;
 		this.damage		= 10;
@@ -20,14 +21,13 @@ class Enemy {
 
 		/* Munition */
 		this.count 		= 0;
-		this.rate		= Math.random()*10+60;
+		this.rate		= Math.random()*10+25;
 
 		/* Initialisation de l'Enemy */
 		this.init();
 	}
 
 	init(){
-		console.log(this.bullet);
 		this.geometry = new THREE.BoxGeometry( this.size.x, this.size.y, this.size.z );
 		this.material = new THREE.MeshBasicMaterial( {color: 0xEF4444} );
 		this.obj = new THREE.Mesh( this.geometry, this.material );
@@ -64,6 +64,9 @@ class Enemy {
 		if(this.count==0){
 			this.shoot();			
 		}
+
+		// Collision
+		this.colide();
 	}
 
 	render(){
@@ -75,6 +78,10 @@ class Enemy {
 		//console.log(this.angle.z);
 		let pos = Object.assign({},this.pos);
 		let angle = Object.assign({},this.angle);
-		game.elements.bullet.push(new Bullet(pos, angle, this.damage, player));
+		game.elements.bullet.push(new Bullet(pos, angle, this.damage, this.team));
+	}
+
+	colide(){
+
 	}
 }

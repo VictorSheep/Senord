@@ -50,10 +50,10 @@ class Player{
 	}
 	update(){
 		//boundaries
-		if (this.pos.x+this.velocity.x>=left_bound+this.size.height && this.pos.x+this.velocity.x<=right_bound-this.size.height) {
+		if (this.pos.x+this.velocity.x>=leftBound+this.size.height && this.pos.x+this.velocity.x<=rightBound-this.size.height) {
 			this.pos.x+=this.velocity.x;
 		};
-		if (this.pos.y+this.velocity.y>=bottom_bound+this.size.height*3 && this.pos.y+this.velocity.y<=top_bound-this.size.height) {
+		if (this.pos.y+this.velocity.y>=bottomBound+this.size.height*3 && this.pos.y+this.velocity.y<=topBound-this.size.height) {
 			this.pos.y+=this.velocity.y;
 		}
 
@@ -69,6 +69,8 @@ class Player{
 
 		//diminution de la barre de vie
 		this.lifeBarre.scale.x=this.life/100;
+
+		this.colide();
 	}
 	render(){
 		this.lifeBarre.position.set(this.pos.x,this.pos.y-this.size.width,this.pos.z);
@@ -76,5 +78,8 @@ class Player{
 		this.obj.position.set(this.pos.x,this.pos.y,this.pos.z);
 
 		this.obj.rotation.set(this.angle.x,this.angle.y,this.angle.z);
+	}
+	colide(){
+
 	}
 }
