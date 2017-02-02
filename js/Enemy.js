@@ -28,7 +28,6 @@ class Enemy {
 	}
 
 	init(){
-		console.log(this.bullet);
 		this.geometry = new THREE.BoxGeometry( this.size.x, this.size.y, this.size.z );
 		this.material = new THREE.MeshBasicMaterial( {color: 0xEF4444} );
 		this.obj = new THREE.Mesh( this.geometry, this.material );
@@ -65,6 +64,9 @@ class Enemy {
 		if(this.count==0){
 			this.shoot();			
 		}
+
+		// Collision
+		this.colide();
 	}
 
 	render(){
@@ -77,5 +79,9 @@ class Enemy {
 		let pos = Object.assign({},this.pos);
 		let angle = Object.assign({},this.angle);
 		game.elements.bullet.push(new Bullet(pos, angle, this.damage, this.team));
+	}
+
+	colide(){
+
 	}
 }

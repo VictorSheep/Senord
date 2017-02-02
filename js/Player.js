@@ -69,6 +69,8 @@ class Player{
 
 		//diminution de la barre de vie
 		this.lifeBarre.scale.x=this.life/100;
+
+		this.colide();
 	}
 	render(){
 		this.lifeBarre.position.set(this.pos.x,this.pos.y,this.pos.z);
@@ -78,5 +80,8 @@ class Player{
 		this.obj.position.set(this.pos.x,this.pos.y-this.size.height*2,this.pos.z);
 
 		this.obj.rotation.set(this.angle.x,this.angle.y,this.angle.z);
+	}
+	colide(){
+
 	}
 }
