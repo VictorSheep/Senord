@@ -17,11 +17,11 @@ var game={
 
 		this.elements.player.push( new Player({x:0,y:0,z:0},100,{x:0,y:0,z:0},{width:32,height:12,depth:10},1) );
 
-		for (let i = 10; i > 0; i--) {
+		for (let i = 50; i > 0; i--) {
 			this.elements.enemy.push( new Enemy() );
 		}
 
-		for (let i = 0; i < 2; i++) {
+		for (let i = 0; i < 17; i++) {
 			for (let j = 0; j < this.elements.enemy.length; j++) {
 				if(!this.elements.enemy[j].isDisp){
 					let pos = {x:Math.random()*1200-600, y:Math.random()*600-300, z:0};
@@ -34,6 +34,8 @@ var game={
 		}
 
 		this.elements.turret[0].spawn({x:0,y:10,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
+		this.elements.turret[1].spawn({x:0,y:10,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
+		this.elements.turret[2].spawn({x:0,y:10,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
 	},
 	update(){
 		player=this.elements.player[0];

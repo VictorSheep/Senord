@@ -57,6 +57,7 @@ class Bullet{
 			// Direction du "regard" du vaisseau
 			this.angle.z = Math.atan(this.dist.y/this.dist.x);
 			if(this.dist.x > 0) this.angle.z = this.angle.z + Math.PI;
+			if(!this.target.isDisp) this.kill();
 		}
 		this.pos.x -= this.velocity.x*this.speed;
 		this.pos.y -= this.velocity.y*this.speed;
@@ -135,7 +136,7 @@ class Bullet{
 
 		if (this.team==1){
 			this.velocity = {x:0, y:0};
-			this.speed = 20;
+			this.speed = 15;
 		}else{
 			this.velocity = {x:Math.cos(this.angle.z), y:Math.sin(this.angle.z)};
 			this.speed = 8;
