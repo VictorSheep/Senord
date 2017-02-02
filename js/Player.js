@@ -50,10 +50,10 @@ class Player{
 	}
 	update(){
 		//boundaries
-		if (this.pos.x+this.velocity.x>=left_bound+this.size.height && this.pos.x+this.velocity.x<=right_bound-this.size.height) {
+		if (this.pos.x+this.velocity.x>=leftBound+this.size.height && this.pos.x+this.velocity.x<=rightBound-this.size.height) {
 			this.pos.x+=this.velocity.x;
 		};
-		if (this.pos.y+this.velocity.y>=bottom_bound+this.size.height*3 && this.pos.y+this.velocity.y<=top_bound-this.size.height) {
+		if (this.pos.y+this.velocity.y>=bottomBound+this.size.height*3 && this.pos.y+this.velocity.y<=topBound-this.size.height) {
 			this.pos.y+=this.velocity.y;
 		}
 

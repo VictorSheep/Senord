@@ -95,10 +95,18 @@ class Bullet{
 	}
 
 	colide(){
-		//if (this.pos.x<left_bound) this.destroy();
+		if (this.pos.x<leftBound*1.2) 	this.kill();
+		if (this.pos.x>rightBound*1.2) 	this.kill();
+		if (this.pos.y>topBound*1.2) 	this.kill();
+		if (this.pos.y<bottomBound*1.2) this.kill();
 	}
 
-	destroy(){
+	kill(){
+		this.removeEntity();
 		//game.elements.bullet.splice(this.id,1);
+	}
+	removeEntity() {
+	    scene.remove( this.obj );
+	    //animate();
 	}
 }
