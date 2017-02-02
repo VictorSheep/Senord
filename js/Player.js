@@ -70,6 +70,10 @@ class Player{
 
 		//diminution de la barre de vie
 		this.lifeBarre.scale.x=this.life/100;
+
+		if (this.life<=0){
+			this.kill();
+		}
 	}
 	render(){
 		this.lifeBarre.position.set(this.pos.x,this.pos.y-this.size.width,this.pos.z);
@@ -77,5 +81,9 @@ class Player{
 		this.obj.position.set(this.pos.x,this.pos.y,this.pos.z);
 
 		this.obj.rotation.set(this.angle.x,this.angle.y,this.angle.z);
+	}
+	kill(){
+		scene.remove(this.obj);
+		scene.remove(this.lifeBarre);
 	}
 }

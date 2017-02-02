@@ -79,13 +79,16 @@ class Bullet{
 			let result = 0;
 			let distMin = dist;
 			for (let i = 1; i < game.elements.enemy.length; i++) {
-				A = game.elements.enemy[i].pos.x - this.pos.x;
-				B = game.elements.enemy[i].pos.y - this.pos.y;
-				dist = Math.sqrt(A*A+B*B);
-				if(dist<distMin){
-					distMin = dist;
-					result = i;
+				if(game.elements.enemy[i].isDisp){
+					A = game.elements.enemy[i].pos.x - this.pos.x;
+					B = game.elements.enemy[i].pos.y - this.pos.y;
+					dist = Math.sqrt(A*A+B*B);
+					if(dist<distMin){
+						distMin = dist;
+						result = i;
+					}
 				}
+				
 			}
 			this.target = game.elements.enemy[result];
 		}

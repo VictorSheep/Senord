@@ -64,14 +64,16 @@ class Turret{
 			//check the range
 			for (var i = 0; i < game.elements.enemy.length; i++) {
 				let enemy=game.elements.enemy[i];
-				this.dist.x = enemy.pos.x-this.pos.x;
-				this.dist.y = enemy.pos.y-this.pos.y;
-				this.dist.dir = Math.sqrt(this.dist.x*this.dist.x + this.dist.y*this.dist.y);
-				// Tire
-				if(this.count==0 && this.activate && this.dist.dir<=this.range){
-					this.shoot();	
-					break;		
-				}
+				if (enemy.isDisp) {
+					this.dist.x = enemy.pos.x-this.pos.x;
+					this.dist.y = enemy.pos.y-this.pos.y;
+					this.dist.dir = Math.sqrt(this.dist.x*this.dist.x + this.dist.y*this.dist.y);
+					// Tire
+					if(this.count==0 && this.activate && this.dist.dir<=this.range){
+						this.shoot();	
+						break;		
+					}
+				}					
 			}
 
 			//check the time

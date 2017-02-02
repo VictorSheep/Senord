@@ -18,14 +18,14 @@ var game={
 		this.elements.player.push( new Player({x:0,y:0,z:0},100,{x:0,y:0,z:0},{width:32,height:12,depth:10},1) );
 
 		for (var i = 2; i > 0; i--) {
-			let pos = {x:Math.random()*1200-600, y:Math.random()*600-300, z:0};
-			let size = {x:30, y:15, z:10};
-			let angle = {x:0, y:0, z:0};
-			this.elements.enemy.push( new Enemy(pos, size, angle, 100) );
+			this.elements.enemy.push( new Enemy() );
 		}
 
-		//this.elements.turret.push( new Turret({x:0,y:0,z:0}, 100, {x:0,y:0,z:0}, {radius:10,width:20,height:30}) );
-		//this.elements.turret.push( new Turret({x:100,y:0,z:0}, 100, {x:0,y:0,z:0}, {radius:10,width:20,height:30}) );
+		let pos = {x:Math.random()*1200-600, y:Math.random()*600-300, z:0};
+		let size = {x:30, y:15, z:10};
+		let angle = {x:0, y:0, z:0};
+		this.elements.enemy[0].spawn(pos, size, angle, 100);
+
 		this.elements.turret[0].spawn({x:0,y:10,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
 	},
 	update(){

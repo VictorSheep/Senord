@@ -1,17 +1,18 @@
 class Enemy {
-	constructor(pos, size, angle, life_max) {
+	constructor() {
 		/* Caracteristiques */
+		this.isDisp 	= false;
 		this.team		= 2;
-		this.life_max 	= life_max;
-		this.life		= life_max;
+		this.life_max 	= 0;
+		this.life		= 0;
 		this.damage		= 10;
 		this.range		= 100;
-		this.hitbox		= size.y;
+		this.hitbox		= 0;
 
 		/* Position objet */
-		this.pos 		= pos;
-		this.size		= size;
-		this.angle		= angle;
+		this.pos 		= {x:0,y:0};
+		this.size		= {x:0,y:0,z:0};
+		this.angle		= {x:0,y:0,z:0};
 		this.dist		= {x:0,y:0,z:0};
 
 		/* Mouvements */
@@ -23,9 +24,17 @@ class Enemy {
 		/* Munition */
 		this.count 		= 0;
 		this.rate		= Math.random()*10+25;
+	}
 
-		/* Initialisation de l'Enemy */
+	spawn(pos, size, angle, life_max){
+		this.life_max 	= life_max;
+		this.life		= life_max;
+		this.pos 		= pos;
+		this.size		= size;
+		this.angle		= angle;
+		this.hitbox 	= size.y;
 		this.init();
+		this.isDisp = true;
 	}
 
 	init(){
@@ -38,41 +47,46 @@ class Enemy {
 	}
 
 	update(player){
-		this.count++;
-		this.count = (this.count>=1000/this.rate)? 0 : this.count;
+		if (this.isDisp) {
+			this.count++;
+			this.count = (this.count>=1000/this.rate)? 0 : this.count;
 
-		this.dist.x = player.x-this.pos.x;
-		this.dist.y = player.y-this.pos.y;
-		this.dist.dir = Math.sqrt(this.dist.x*this.dist.x + this.dist.y*this.dist.y);
-		/* Mise à jour des positions */
-		this.velocity.x += (this.dist.x)/(2000) + this.adjVlocity.x/10 + Math.random()-.5;
-		this.velocity.y += (this.dist.y)/(2000) + this.adjVlocity.y/10 + Math.random()-.5;
-		this.velocity.x = this.velocity.x/1.02;
-		this.velocity.y = this.velocity.y/1.02;
+			this.dist.x = player.x-this.pos.x;
+			this.dist.y = player.y-this.pos.y;
+			this.dist.dir = Math.sqrt(this.dist.x*this.dist.x + this.dist.y*this.dist.y);
+			/* Mise à jour des positions */
+			this.velocity.x += (this.dist.x)/(2000) + this.adjVlocity.x/10 + Math.random()-.5;
+			this.velocity.y += (this.dist.y)/(2000) + this.adjVlocity.y/10 + Math.random()-.5;
+			this.velocity.x = this.velocity.x/1.02;
+			this.velocity.y = this.velocity.y/1.02;
 
-		this.pos.x += this.velocity.x;
-		this.pos.y += this.velocity.y;
+			this.pos.x += this.velocity.x;
+			this.pos.y += this.velocity.y;
 
-		// Direction du "regard" du vaisseau
-		this.angle.z = Math.atan(this.dist.y/this.dist.x);
-		if(this.dist.x > 0) this.angle.z = this.angle.z + Math.PI;
+			// Direction du "regard" du vaisseau
+			this.angle.z = Math.atan(this.dist.y/this.dist.x);
+			if(this.dist.x > 0) this.angle.z = this.angle.z + Math.PI;
 
-		this.angle.x += this.rotation.x/(180*Math.PI);
-		this.angle.y += this.rotation.y/(180*Math.PI);
-		this.angle.z += this.rotation.z/(180*Math.PI);
+			this.angle.x += this.rotation.x/(180*Math.PI);
+			this.angle.y += this.rotation.y/(180*Math.PI);
+			this.angle.z += this.rotation.z/(180*Math.PI);
 
-		// Tire
-		if(this.count==0){
-			this.shoot();			
+			// Tire
+			if(this.count==0){
+				this.shoot();			
+			}
+
+			if(this.life<=0){
+				this.kill();
+			}
 		}
-
-		// Collision
-		this.colide();
 	}
 
 	render(){
-		this.obj.position.set(this.pos.x, this.pos.y, this.pos.z);
-		this.obj.rotation.set(this.angle.x, this.angle.y, this.angle.z);
+		if (this.isDisp) {
+			this.obj.position.set(this.pos.x, this.pos.y, this.pos.z);
+			this.obj.rotation.set(this.angle.x, this.angle.y, this.angle.z);	
+		}
 	}
 
 	shoot(){
@@ -86,7 +100,8 @@ class Enemy {
 		}
 	}
 
-	colide(){
-
+	kill(){
+		this.isDisp = false;
+	    scene.remove( this.obj );
 	}
 }
