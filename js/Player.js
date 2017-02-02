@@ -13,6 +13,7 @@ class Player{
 		this.life 			= life_max;
 		this.life_max		= life_max;
 		this.speed      	= speed;
+		this.hitbox			= this.size.height;
 
 		/* Modelisation */
 		this.geometry 		= new THREE.BoxGeometry( this.size.width, this.size.height, this.size.depth );

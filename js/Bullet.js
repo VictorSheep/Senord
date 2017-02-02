@@ -5,6 +5,7 @@ class Bullet{
 		this.damage = 0;
 		this.team 	= 0;
 		this.target = null;
+		this.hitbox = 4;
 		/* Position */
 		this.pos		= {x:10, y:5};
 		this.angle      = {x:0, y:0, z:0};
@@ -60,7 +61,7 @@ class Bullet{
 		this.pos.x -= this.velocity.x*this.speed;
 		this.pos.y -= this.velocity.y*this.speed;
 
-		this.colide();
+		this.outOfScreen();
 	}
 
 	render(){
@@ -90,11 +91,17 @@ class Bullet{
 		}
 	}
 
-	colide(){
+	outOfScreen(){
 		if (this.pos.x<leftBound*1.2) 	this.kill();
 		if (this.pos.x>rightBound*1.2) 	this.kill();
 		if (this.pos.y>topBound*1.2) 	this.kill();
 		if (this.pos.y<bottomBound*1.2) this.kill();
+	}
+
+	collide(element){
+		if(element.team != this.team){
+			element.life -= this.damage; 
+		}
 	}
 
 	kill(){
