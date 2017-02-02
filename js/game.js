@@ -4,24 +4,29 @@ var game={
 		player	:[],
 		enemy	:[],
 		turret	:[],
-		bullet	:[]
+		bullet	:[],
+		factory :[],
 	},
 
 	init(){
+		//création de l'instance du player
+		this.elements.player.push( new Player({x:0,y:100,z:0},100,{x:0,y:0,z:0},{width:32,height:12,depth:10},1) );
+		//création de l'instance de l'usine
+		this.elements.factory.push( new Factory({x:0,y:0,z:0},100,{x:0,y:0,z:0},{width:50,height:50,depth:10},10) );
+		//Pool de projectilles
 		for (let i = 0; i < 200; i++) {
 			this.elements.bullet.push( new Bullet() );
 		}
-		for (let i = 0; i < 10; i++) {
+		//Pool de tourelles
+		for (let i = 0; i < this.elements.factory[0].nbTMax; i++) {
 			this.elements.turret.push( new Turret() );
 		}
-
-		this.elements.player.push( new Player({x:0,y:0,z:0},100,{x:0,y:0,z:0},{width:32,height:12,depth:10},1) );
 
 		for (let i = 50; i > 0; i--) {
 			this.elements.enemy.push( new Enemy() );
 		}
 
-		for (let i = 0; i < 17; i++) {
+		for (let i = 0; i < 0; i++) {
 			for (let j = 0; j < this.elements.enemy.length; j++) {
 				if(!this.elements.enemy[j].isDisp){
 					let pos = {x:Math.random()*1200-600, y:Math.random()*600-300, z:0};
@@ -33,9 +38,9 @@ var game={
 			}
 		}
 
-		this.elements.turret[0].spawn({x:-200,y:100,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
-		this.elements.turret[1].spawn({x:100,y:200,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
-		this.elements.turret[2].spawn({x:100,y:-100,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
+		//this.elements.turret[0].spawn({x:-200,y:100,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
+		//this.elements.turret[1].spawn({x:100,y:200,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
+		//this.elements.turret[2].spawn({x:100,y:-100,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
 	},
 	update(){
 		player=this.elements.player[0];
@@ -79,7 +84,7 @@ var game={
 					for (var j = 0; j < this.elements.turret.length; j++) {
 						// calcul de distance entre la tourelle a poser et toute celle qui sont poser
 						let turret2=this.elements.turret[j];
-						if (turret2.activate) {
+						if (!turret2.picked) {
 	    					turret.dist.x = turret2.pos.x-turret.pos.x;
 							turret.dist.y = turret2.pos.y-turret.pos.y;
 							turret.dist.dir = Math.sqrt(turret.dist.x*turret.dist.x + turret.dist.y*turret.dist.y);
@@ -119,7 +124,8 @@ var game={
 					let dy = circle1.y - circle2.y;
 					let distance = Math.sqrt(dx * dx + dy * dy);
 
-					if (distance < circle1.radius + circle2.radius) {
+					if (distance < circle1.radius + circle2.radius && bullet.hit) {
+						bullet.hit=false;
 					    bullet.collide(target);
 					}
 				}
@@ -131,7 +137,8 @@ var game={
 				let dy = circle1.y - circle2.y;
 				let distance = Math.sqrt(dx * dx + dy * dy);
 
-				if (distance < circle1.radius + circle2.radius) {
+				if (distance < circle1.radius + circle2.radius && bullet.hit) {
+					bullet.hit=false;
 				    bullet.collide(target);
 				}
 			}
