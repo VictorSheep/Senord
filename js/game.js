@@ -6,32 +6,24 @@ var game={
 		turret	:[],
 		bullet	:[]
 	},
-
+	nbEnemy:0,
+	nbTurret:0,
+	round:1,
 	init(){
-		for (let i = 0; i < 200; i++) {
+		this.elements.player.push( new Player({x:0,y:0,z:0},100,{x:0,y:0,z:0},{width:32,height:12,depth:10},1) );
+
+		for (let i = 0; i < 500; i++) {
 			this.elements.bullet.push( new Bullet() );
 		}
 		for (let i = 0; i < 10; i++) {
 			this.elements.turret.push( new Turret() );
 		}
 
-		this.elements.player.push( new Player({x:0,y:0,z:0},100,{x:0,y:0,z:0},{width:32,height:12,depth:10},1) );
-
 		for (let i = 50; i > 0; i--) {
 			this.elements.enemy.push( new Enemy() );
 		}
 
-		for (let i = 0; i < 17; i++) {
-			for (let j = 0; j < this.elements.enemy.length; j++) {
-				if(!this.elements.enemy[j].isDisp){
-					let pos = {x:Math.random()*1200-600, y:Math.random()*600-300, z:0};
-					let size = {x:30, y:15, z:10};
-					let angle = {x:0, y:0, z:0};
-					this.elements.enemy[j].spawn(pos, size, angle, 100);
-					break;
-				}
-			}
-		}
+		this.spawnEnemy(3);
 
 		this.elements.turret[0].spawn({x:-200,y:100,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
 		this.elements.turret[1].spawn({x:100,y:200,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
@@ -93,6 +85,11 @@ var game={
     			};
     		}
     	}
+    	this.nbEnemy = this.getNbIsDisp("enemy");
+    	if (this.nbEnemy<=0){
+    		this.round++;
+    		this.spawnEnemy(2+this.round*2);
+    	}
     	this.collide();
 	},
 
@@ -104,15 +101,58 @@ var game={
 			}
 		}
 	},
-
+	getNbIsDisp(element){
+		let result = 0;
+		switch(element){
+			case "enemy":
+				for (var i = 0; i < this.elements.enemy.length; i++) {
+					if (this.elements.enemy[i].isDisp) result++;
+				}
+			break;
+			case "turret":
+				for (var i = 0; i < this.elements.turret.length; i++) {
+					if (this.elements.turret[i].isDisp) result++;
+				}
+			break;
+			default:
+			break;
+		}
+		return result;
+	},
+	spawnEnemy(nb){
+		for (let i = 0; i < nb; i++) {
+			for (let j = 0; j < this.elements.enemy.length; j++) {
+				if(!this.elements.enemy[j].isDisp){
+					let pos = {x:Math.random()*1200-600, y:Math.random()*600-300, z:0};
+					let size = {x:30, y:15, z:10};
+					let angle = {x:0, y:0, z:0};
+					this.elements.enemy[j].spawn(pos, size, angle, 100);
+					break;
+				}
+			}
+		}
+	},
 	collide(){
 		for (let i = 0; i < this.elements.bullet.length; i++) {
 			let bullet = this.elements.bullet[i];
-			let circle1 = {radius: bullet.hitbox, x: bullet.pos.x, y: bullet.pos.y};
+			if(bullet.isDisp){
+				let circle1 = {radius: bullet.hitbox, x: bullet.pos.x, y: bullet.pos.y};
 
-			if (bullet.team == 1) {
-				for (let j = 0; j < this.elements.enemy.length; j++) {
-					let target = this.elements.enemy[j];
+				if (bullet.team == 1) {
+					for (let j = 0; j < this.elements.enemy.length; j++) {
+						let target = this.elements.enemy[j];
+						let circle2 = {radius:target.hitbox, x: target.pos.x, y: target.pos.y};
+
+						let dx = circle1.x - circle2.x;
+						let dy = circle1.y - circle2.y;
+						let distance = Math.sqrt(dx * dx + dy * dy);
+
+						if (distance < circle1.radius + circle2.radius) {
+						    bullet.collide(target);
+						}
+					}
+				}else{
+					let target = this.elements.player[0];
 					let circle2 = {radius:target.hitbox, x: target.pos.x, y: target.pos.y};
 
 					let dx = circle1.x - circle2.x;
@@ -123,21 +163,7 @@ var game={
 					    bullet.collide(target);
 					}
 				}
-			}else{
-				let target = this.elements.player[0];
-				let circle2 = {radius:target.hitbox, x: target.pos.x, y: target.pos.y};
-
-				let dx = circle1.x - circle2.x;
-				let dy = circle1.y - circle2.y;
-				let distance = Math.sqrt(dx * dx + dy * dy);
-
-				if (distance < circle1.radius + circle2.radius) {
-				    bullet.collide(target);
-				}
 			}
-				
-
-				
 		}
 	}
 }

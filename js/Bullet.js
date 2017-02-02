@@ -81,7 +81,6 @@ class Bullet{
 			let distMin = dist;
 			for (var i = 0; i < game.elements.enemy.length; i++) {
 				let enemy = game.elements.enemy[i];
-				console.log("ID = "+ i + " isDisp=" +enemy.isDisp);
 				if(game.elements.enemy[i].isDisp){
 					A = enemy.pos.x - this.pos.x;
 					B = enemy.pos.y - this.pos.y;
@@ -92,9 +91,10 @@ class Bullet{
 				}
 			}
 			for (let i = 1; i < game.elements.enemy.length; i++) {
-				if(game.elements.enemy[i].isDisp){
-					A = game.elements.enemy[i].pos.x - this.pos.x;
-					B = game.elements.enemy[i].pos.y - this.pos.y;
+				let enemy = game.elements.enemy[i];
+				if(enemy.isDisp){
+					A = enemy.pos.x - this.pos.x;
+					B = enemy.pos.y - this.pos.y;
 					dist = Math.sqrt(A*A+B*B);
 					if(dist<distMin){
 						distMin = dist;
