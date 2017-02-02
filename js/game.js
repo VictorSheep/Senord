@@ -84,6 +84,7 @@ var game={
     			};
     		}
     	}
+    	this.collide();
 	},
 
 	render(){
@@ -94,4 +95,40 @@ var game={
 			}
 		}
 	},
+
+	collide(){
+		for (let i = 0; i < this.elements.bullet.length; i++) {
+			let bullet = this.elements.bullet[i];
+			let circle1 = {radius: bullet.hitbox, x: bullet.pos.x, y: bullet.pos.y};
+
+			if (bullet.team == 1) {
+				for (let j = 0; j < this.elements.enemy.length; j++) {
+					let target = this.elements.enemy[j];
+					let circle2 = {radius:target.hitbox, x: target.pos.x, y: target.pos.y};
+
+					let dx = circle1.x - circle2.x;
+					let dy = circle1.y - circle2.y;
+					let distance = Math.sqrt(dx * dx + dy * dy);
+
+					if (distance < circle1.radius + circle2.radius) {
+					    bullet.collide(target);
+					}
+				}
+			}else{
+				let target = this.elements.player[0];
+				let circle2 = {radius:target.hitbox, x: target.pos.x, y: target.pos.y};
+
+				let dx = circle1.x - circle2.x;
+				let dy = circle1.y - circle2.y;
+				let distance = Math.sqrt(dx * dx + dy * dy);
+
+				if (distance < circle1.radius + circle2.radius) {
+				    bullet.collide(target);
+				}
+			}
+				
+
+				
+		}
+	}
 }

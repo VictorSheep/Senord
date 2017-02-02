@@ -6,6 +6,7 @@ class Enemy {
 		this.life		= life_max;
 		this.damage		= 10;
 		this.range		= 100;
+		this.hitbox		= size.y;
 
 		/* Position objet */
 		this.pos 		= pos;
