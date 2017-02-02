@@ -71,11 +71,9 @@ class Player{
 		this.lifeBarre.scale.x=this.life/100;
 	}
 	render(){
-		this.lifeBarre.position.set(this.pos.x,this.pos.y,this.pos.z);
+		this.lifeBarre.position.set(this.pos.x,this.pos.y-this.size.width,this.pos.z);
 
-		this.lifeBarre.rotation.set(this.angle.x,this.angle.y,Math.PI);
-
-		this.obj.position.set(this.pos.x,this.pos.y-this.size.height*2,this.pos.z);
+		this.obj.position.set(this.pos.x,this.pos.y,this.pos.z);
 
 		this.obj.rotation.set(this.angle.x,this.angle.y,this.angle.z);
 	}
