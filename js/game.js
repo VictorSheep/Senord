@@ -12,7 +12,7 @@ var game={
 		//création de l'instance du player
 		this.elements.player.push( new Player({x:0,y:100,z:0},100,{x:0,y:0,z:0},{width:32,height:12,depth:10},1) );
 		//création de l'instance de l'usine
-		this.elements.factory.push( new Factory({x:0,y:0,z:0},100,{x:0,y:0,z:0},{width:50,height:50,depth:10},10) );
+		this.elements.factory.push( new Factory({x:0,y:0,z:0},500,{x:0,y:0,z:0},{width:50,height:50,depth:10},10) );
 		//Pool de projectilles
 		for (let i = 0; i < 200; i++) {
 			this.elements.bullet.push( new Bullet() );
@@ -26,7 +26,7 @@ var game={
 			this.elements.enemy.push( new Enemy() );
 		}
 
-		for (let i = 0; i < 0; i++) {
+		for (let i = 0; i < 17; i++) {
 			for (let j = 0; j < this.elements.enemy.length; j++) {
 				if(!this.elements.enemy[j].isDisp){
 					let pos = {x:Math.random()*1200-600, y:Math.random()*600-300, z:0};
