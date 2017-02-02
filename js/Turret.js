@@ -69,6 +69,11 @@ class Turret{
 	shoot(){
 		let pos = Object.assign({},this.pos);
 		let angle = Object.assign({},this.angle);
-		game.elements.bullet.push(new Bullet(pos, angle, this.damage, this.team));
+		for (var i = 0; i < game.elements.bullet.length; i++) {
+			if(!game.elements.bullet[i].isDisp){
+				game.elements.bullet[i].spawn(pos, angle, this.damage, this.team);
+				break;
+			}
+		}
 	}
 }

@@ -1,27 +1,21 @@
 class Bullet{
-	constructor(pos, angle, damage, team){
+	constructor(){
+		this.isDisp = false;
 		this.id		= game.elements.bullet.length -1;
-		this.damage = damage;
-		this.team 	= team;
+		this.damage = 0;
+		this.team 	= 0;
 		this.target = null;
 		/* Position */
-		this.pos		= pos;
-		this.angle      = angle;
+		this.pos		= {x:10, y:5};
+		this.angle      = {x:0, y:0, z:0};
 		this.size		= {x:10, y:5, z:5};
 		this.dist 		= {x:0, y:0};
 
 		/* Mouvements */
-		if (this.team==1){
-			this.velocity = {x:0, y:0};
-		}else{
-			this.velocity = {x:Math.cos(angle.z), y:Math.sin(angle.z)};
-		}
+		this.velocity = {x:0, y:0};
 
 		/* Caracteristiques */
 		this.speed      = 8;
-
-		/* Initialisation de l'Enemy */
-		this.init();
 	}
 
 
@@ -70,8 +64,10 @@ class Bullet{
 	}
 
 	render(){
-		this.obj.position.set(this.pos.x, this.pos.y, this.pos.z);
-		this.obj.rotation.set(this.angle.x, this.angle.y, this.angle.z);
+		if(this.isDisp){
+			this.obj.position.set(this.pos.x, this.pos.y, this.pos.z);
+			this.obj.rotation.set(this.angle.x, this.angle.y, this.angle.z);	
+		}
 	}
 
 	defineTarget(){
@@ -102,11 +98,24 @@ class Bullet{
 	}
 
 	kill(){
-		this.removeEntity();
-		//game.elements.bullet.splice(this.id,1);
-	}
-	removeEntity() {
+		this.isDisp = false;
 	    scene.remove( this.obj );
-	    //animate();
+	}
+
+	spawn(pos, angle, damage, team){
+		/* Initialisation de la Bullet */
+		this.damage = damage;
+		this.team 	= team;
+		/* Position */
+		this.pos	= pos;
+		this.angle  = angle;
+
+		if (this.team==1){
+			this.velocity = {x:0, y:0};
+		}else{
+			this.velocity = {x:Math.cos(this.angle.z), y:Math.sin(this.angle.z)};
+		}
+		this.init();
+		this.isDisp= true;
 	}
 }
