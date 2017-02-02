@@ -73,11 +73,23 @@ class Bullet{
 
 	defineTarget(){
 		if (this.team==1){
-			let A = game.elements.enemy[0].pos.x - this.pos.x;
-			let B = game.elements.enemy[0].pos.y - this.pos.y;
-			let dist = Math.sqrt(A*A+B*B);
+			let A = 0;
+			let B = 0;
+			let dist = rightBound*3;
 			let result = 0;
 			let distMin = dist;
+			for (var i = 0; i < game.elements.enemy.length; i++) {
+				let enemy = game.elements.enemy[i];
+				console.log("ID = "+ i + " isDisp=" +enemy.isDisp);
+				if(game.elements.enemy[i].isDisp){
+					A = enemy.pos.x - this.pos.x;
+					B = enemy.pos.y - this.pos.y;
+					dist = Math.sqrt(A*A+B*B);
+					result = i;
+					distMin = dist;
+					break;
+				}
+			}
 			for (let i = 1; i < game.elements.enemy.length; i++) {
 				if(game.elements.enemy[i].isDisp){
 					A = game.elements.enemy[i].pos.x - this.pos.x;

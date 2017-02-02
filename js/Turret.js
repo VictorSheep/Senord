@@ -71,7 +71,7 @@ class Turret{
 					// Tire
 					if(this.count==0 && this.activate && this.dist.dir<=this.range){
 						this.shoot();	
-						break;		
+						break;
 					}
 				}					
 			}

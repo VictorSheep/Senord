@@ -8,23 +8,30 @@ var game={
 	},
 
 	init(){
-		for (var i = 0; i < 200; i++) {
+		for (let i = 0; i < 200; i++) {
 			this.elements.bullet.push( new Bullet() );
 		}
-		for (var i = 0; i < 10; i++) {
+		for (let i = 0; i < 10; i++) {
 			this.elements.turret.push( new Turret() );
 		}
 
 		this.elements.player.push( new Player({x:0,y:0,z:0},100,{x:0,y:0,z:0},{width:32,height:12,depth:10},1) );
 
-		for (var i = 2; i > 0; i--) {
+		for (let i = 10; i > 0; i--) {
 			this.elements.enemy.push( new Enemy() );
 		}
 
-		let pos = {x:Math.random()*1200-600, y:Math.random()*600-300, z:0};
-		let size = {x:30, y:15, z:10};
-		let angle = {x:0, y:0, z:0};
-		this.elements.enemy[0].spawn(pos, size, angle, 100);
+		for (let i = 0; i < 2; i++) {
+			for (let j = 0; j < this.elements.enemy.length; j++) {
+				if(!this.elements.enemy[j].isDisp){
+					let pos = {x:Math.random()*1200-600, y:Math.random()*600-300, z:0};
+					let size = {x:30, y:15, z:10};
+					let angle = {x:0, y:0, z:0};
+					this.elements.enemy[j].spawn(pos, size, angle, 100);
+					break;
+				}
+			}
+		}
 
 		this.elements.turret[0].spawn({x:0,y:10,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
 	},
