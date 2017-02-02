@@ -33,9 +33,9 @@ var game={
 			}
 		}
 
-		this.elements.turret[0].spawn({x:0,y:10,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
-		this.elements.turret[1].spawn({x:0,y:10,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
-		this.elements.turret[2].spawn({x:0,y:10,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
+		this.elements.turret[0].spawn({x:-200,y:100,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
+		this.elements.turret[1].spawn({x:100,y:200,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
+		this.elements.turret[2].spawn({x:100,y:-100,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
 	},
 	update(){
 		player=this.elements.player[0];
