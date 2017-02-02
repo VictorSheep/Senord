@@ -1,7 +1,7 @@
-let left_bound = window.innerWidth/-2;
-let right_bound = window.innerWidth/2;
-let top_bound = window.innerHeight/2;
-let bottom_bound = window.innerHeight/-2;
+let leftBound = window.innerWidth/-2;
+let rightBound = window.innerWidth/2;
+let topBound = window.innerHeight/2;
+let bottomBound = window.innerHeight/-2;
 
 function abs(nb){
 	if (nb<0) return -nb;

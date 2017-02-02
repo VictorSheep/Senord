@@ -1,7 +1,8 @@
 class Bullet{
 	constructor(pos, angle, damage, team){
+		this.id		= game.elements.bullet.length -1;
 		this.damage = damage;
-		this.team = team;
+		this.team 	= team;
 		this.target = null;
 		/* Position */
 		this.pos		= pos;
@@ -17,7 +18,6 @@ class Bullet{
 		}
 
 		/* Caracteristiques */
-		this.lifetime	= 100;
 		this.speed      = 8;
 
 		/* Initialisation de l'Enemy */
@@ -65,6 +65,8 @@ class Bullet{
 		}
 		this.pos.x -= this.velocity.x*this.speed;
 		this.pos.y -= this.velocity.y*this.speed;
+
+		this.colide();
 	}
 
 	render(){
@@ -90,5 +92,21 @@ class Bullet{
 			}
 			this.target = game.elements.enemy[result];
 		}
+	}
+
+	colide(){
+		if (this.pos.x<leftBound*1.2) 	this.kill();
+		if (this.pos.x>rightBound*1.2) 	this.kill();
+		if (this.pos.y>topBound*1.2) 	this.kill();
+		if (this.pos.y<bottomBound*1.2) this.kill();
+	}
+
+	kill(){
+		this.removeEntity();
+		//game.elements.bullet.splice(this.id,1);
+	}
+	removeEntity() {
+	    scene.remove( this.obj );
+	    //animate();
 	}
 }
