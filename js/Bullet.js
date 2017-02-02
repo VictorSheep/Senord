@@ -102,6 +102,7 @@ class Bullet{
 		if(element.team != this.team){
 			element.life -= this.damage; 
 		}
+		this.kill();
 	}
 
 	kill(){
@@ -119,8 +120,10 @@ class Bullet{
 
 		if (this.team==1){
 			this.velocity = {x:0, y:0};
+			this.speed = 20;
 		}else{
 			this.velocity = {x:Math.cos(this.angle.z), y:Math.sin(this.angle.z)};
+			this.speed = 8;
 		}
 		this.init();
 		this.isDisp= true;
