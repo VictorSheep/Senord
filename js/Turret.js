@@ -16,6 +16,8 @@ class Turret{
 		this.activate   = false;
 		this.picked     = false;
 		this.damage 	= 10;
+		this.range	 	= 300;
+
 		/* Munition */
 		this.count 		= 0;
 		this.rate		= Math.random()*10+60;
@@ -24,6 +26,9 @@ class Turret{
 		this.geometry 	= new THREE.SphereGeometry( this.size.radius, this.size.width, this.size.heigth );
 		this.material 	= new THREE.MeshBasicMaterial( {color: 0x00ffff} );
 		this.obj	  	= new THREE.Mesh( this.geometry, this.material );
+		this.rangeRingGeometry 	= new THREE.RingGeometry( this.range, this.range+2, 32 );
+		this.rangeRingMaterial 	= new THREE.MeshBasicMaterial( {color: 0x00ffff,transparent:true,opacity:0.3} );
+		this.rangeRing	= new THREE.Mesh( this.rangeRingGeometry, this.rangeRingMaterial );
 
 		this.init();
 	}
@@ -44,13 +49,21 @@ class Turret{
 		}else{
 			this.pos=this.obj.position;
 		}
-
 		
 		this.count++;
 		this.count = (this.count>=1000/this.rate)? 0 : this.count;
-		// Tire
-		if(this.count==0){
-			this.shoot();			
+
+		//check the range
+		for (var i = 0; i < game.elements.enemy.length; i++) {
+			let enemy=game.elements.enemy[i];
+			this.dist.x = enemy.pos.x-this.pos.x;
+			this.dist.y = enemy.pos.y-this.pos.y;
+			this.dist.dir = Math.sqrt(this.dist.x*this.dist.x + this.dist.y*this.dist.y);
+			// Tire
+			if(this.count==0 && this.activate && this.dist.dir<=this.range){
+				this.shoot();	
+				break;		
+			}
 		}
 	}
 	render(){
@@ -65,6 +78,8 @@ class Turret{
 	launch(){
 		this.picked=false;
 		this.activate=true;
+		this.rangeRing.position.set(this.pos.x,this.pos.y,this.pos.z);
+		scene.add(this.rangeRing); 
 	}
 	shoot(){
 		let pos = Object.assign({},this.pos);
