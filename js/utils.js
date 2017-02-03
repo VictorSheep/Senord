@@ -7,3 +7,16 @@ function abs(nb){
 	if (nb<0) return -nb;
 	return nb;
 }
+
+/**
+ * chance
+ * @param  {int} 	nb : entier de 0 à 100
+ * @return {bool}
+ */
+function chance(nb){
+	if(Math.round(Math.random()*100)<nb){
+		return true;
+	}else{
+		return false;
+	}
+}

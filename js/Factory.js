@@ -4,12 +4,12 @@ class Factory{
 		this.pos		= pos;
 		this.angle      = angle;
 		this.size		= size;
+		this.nbTMax		= nbTMax;
 
 		/* Caracteristiques */
 		this.time 			= time_max;
 		this.time_max		= time_max;
 		this.nbT 			= 0;
-		this.nbTMax 		= nbTMax;
 
 		/* Modelisation */
 		this.geometry 		= new THREE.BoxGeometry( this.size.width, this.size.height, this.size.depth );
@@ -43,14 +43,14 @@ class Factory{
 		this.obj.position.set(this.pos.x,this.pos.y,this.pos.z);
 	}
 	generateTurret(){
-		if (this.nbT<this.nbTMax) {
+		if (game.getNbIsDisp("turret")<this.nbTMax) {
 			if (this.time<=0) {
 				for (let i = 0; i < game.elements.turret.length; i++) {
 					let turret = game.elements.turret[i];
 					if (!turret.isDisp) {
 						let pos = {
-							x:this.pos.x-this.size.width+this.nbT*30,
-							y:this.pos.y-this.size.height,
+							x:Math.cos(this.nbT/(Math.PI/1.6))*60,
+							y:Math.sin(this.nbT/(Math.PI/1.6))*60,
 							z:0
 						}
 						let time_max = 700;
@@ -65,6 +65,6 @@ class Factory{
 			}else{
 				this.time--;
 			}
-		};
+		}
 	}
 }

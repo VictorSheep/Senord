@@ -137,7 +137,7 @@ class Bullet{
 
 		if (this.team==1){
 			this.velocity = {x:0, y:0};
-			this.speed = 15;
+			this.speed = 25;
 		}else{
 			this.velocity = {x:Math.cos(this.angle.z), y:Math.sin(this.angle.z)};
 			this.speed = 8;
