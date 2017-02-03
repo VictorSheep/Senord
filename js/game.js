@@ -6,6 +6,7 @@ var game={
 		turret	:[],
 		bullet	:[],
 		factory :[],
+		particle:[]
 	},
 	nbEnemy:0,
 	nbTurret:0,
@@ -28,6 +29,10 @@ var game={
 
 		for (let i = 50; i > 0; i--) {
 			this.elements.enemy.push( new Enemy() );
+		}
+
+		for (var i = 0; i < 20; i++) {
+			this.elements.particle.push( new Particle() )
 		}
 
 		this.spawnEnemy(3);
