@@ -44,7 +44,6 @@ class Turret{
 		this.timeBarre.position.set(this.pos.x,this.pos.y,100);
 		this.obj.position.set(this.pos.x,this.pos.y,0);
 		this.obj.rotation.set(this.angle.x,this.angle.y,this.angle.z);
-		scene.add(this.obj);
 	}
 
 	update(player_pos){
@@ -132,5 +131,11 @@ class Turret{
 		this.angle  = angle;
 		this.init();
 		this.isDisp = true;
+		this.dist		= {x:0,y:0,z:0};
+		this.rotation	= {x:0, y:0, z:0};		
+		this.activate   = false;
+		this.picked     = false;
+		this.count 		= 0;
+		scene.add(this.obj);
 	}
 }

@@ -8,6 +8,7 @@ class Enemy {
 		this.damage		= 10;
 		this.range		= 100;
 		this.hitbox		= 0;
+		this.scoreGiven = 100;
 
 		/* Position objet */
 		this.pos 		= {x:0,y:0};
@@ -27,13 +28,14 @@ class Enemy {
 		this.rate		= Math.random()*10+25;
 	}
 
-	spawn(pos, size, angle, life_max){
+	spawn(pos, size, angle, life_max, scoreGiven){
 		this.life_max 	= life_max;
 		this.life		= life_max;
 		this.pos 		= pos;
 		this.size		= size;
 		this.angle		= angle;
 		this.hitbox 	= size.y;
+		this.scoreGiven = scoreGiven;
 		this.init();
 		this.isDisp = true;
 	}
@@ -110,5 +112,6 @@ class Enemy {
 	kill(){
 		this.isDisp = false;
 	    scene.remove( this.obj );
+	    game.score+=this.scoreGiven;
 	}
 }

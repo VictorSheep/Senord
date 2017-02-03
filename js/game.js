@@ -10,11 +10,12 @@ var game={
 	nbEnemy:0,
 	nbTurret:0,
 	round:1,
+	score:0,
 	init(){
 		//création de l'instance du player
 		this.elements.player.push( new Player({x:0,y:100,z:0},100,{x:0,y:0,z:0},{width:32,height:12,depth:10},1) );
 		//création de l'instance de l'usine
-		this.elements.factory.push( new Factory({x:0,y:0,z:0},500,{x:0,y:0,z:0},{width:50,height:50,depth:10},10) );
+		this.elements.factory.push( new Factory({x:0,y:0,z:0},100,{x:0,y:0,z:0},{width:50,height:50,depth:10},10) );
 		//Pool de projectilles
 		for (let i = 0; i < 200; i++) {
 			this.elements.bullet.push( new Bullet() );
@@ -35,6 +36,8 @@ var game={
 		//this.elements.turret[2].spawn({x:100,y:-100,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
 	},
 	update(){
+		//affichage du score
+		$(".score span").html(this.score);
 		player=this.elements.player[0];
 		for (var prop in this.elements){
 			/* update de chaque player */
@@ -92,6 +95,7 @@ var game={
     	}
     	this.nbEnemy = this.getNbIsDisp("enemy");
     	if (this.nbEnemy<=0){
+    		this.score+=100*this.round;
     		this.round++;
     		this.spawnEnemy(2+this.round*2);
     	}
@@ -131,7 +135,7 @@ var game={
 					let pos = {x:Math.random()*1200-600, y:Math.random()*600-300, z:0};
 					let size = {x:30, y:15, z:10};
 					let angle = {x:0, y:0, z:0};
-					this.elements.enemy[j].spawn(pos, size, angle, 100);
+					this.elements.enemy[j].spawn(pos, size, angle, 100, 100);
 					break;
 				}
 			}
