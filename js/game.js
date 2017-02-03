@@ -11,6 +11,7 @@ var game={
 	nbTurret:0,
 	round:1,
 	score:0,
+	endGame:false,
 	init(){
 		//création de l'instance du player
 		this.elements.player.push( new Player({x:0,y:100,z:0},100,{x:0,y:0,z:0},{width:32,height:12,depth:10},1) );
@@ -92,6 +93,11 @@ var game={
     				break;
     			};
     		}
+    	}
+
+    	//vérifie la défaite
+    	if (this.endGame) {
+    		window.location.replace("../Senord/gameOver.html");
     	}
     	this.nbEnemy = this.getNbIsDisp("enemy");
     	if (this.nbEnemy<=0){

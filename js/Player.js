@@ -85,5 +85,6 @@ class Player{
 	kill(){
 		scene.remove(this.obj);
 		scene.remove(this.lifeBarre);
+		game.endGame=true;
 	}
 }
