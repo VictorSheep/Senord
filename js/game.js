@@ -97,7 +97,7 @@ var game={
 
     	//vérifie la défaite
     	if (this.endGame) {
-    		window.location.replace("../Senord/gameOver.html");
+    		window.location.replace("./gameOver.html");
     	}
     	this.nbEnemy = this.getNbIsDisp("enemy");
     	if (this.nbEnemy<=0){
