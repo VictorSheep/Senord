@@ -169,19 +169,7 @@ var game={
 					    bullet.collide(target);
 					}
 				}
-			}/*else{
-				let target = this.elements.player[0];
-				let circle2 = {radius:target.hitbox, x: target.pos.x, y: target.pos.y};
-
-				let dx = circle1.x - circle2.x;
-				let dy = circle1.y - circle2.y;
-				let distance = Math.sqrt(dx * dx + dy * dy);
-
-				if (distance < circle1.radius + circle2.radius && bullet.hit) {
-					bullet.hit=false;
-				    bullet.collide(target);
-				}
-			}*/
+			}
 		}
 	}
 }

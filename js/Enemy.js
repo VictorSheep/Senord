@@ -20,6 +20,7 @@ class Enemy {
 		this.velocity	= {x:1, y:0};
 		this.adjVlocity	= {x:Math.random()*2-1, y:Math.random()*2-1};
 		this.speed 		= 0;
+		this.adjSpeed	= Math.random()*2+1;
 
 		/* Munition */
 		this.count 		= 0;
@@ -55,10 +56,15 @@ class Enemy {
 			this.dist.y = player.y-this.pos.y;
 			this.dist.dir = Math.sqrt(this.dist.x*this.dist.x + this.dist.y*this.dist.y);
 			/* Mise à jour des positions */
-			this.velocity.x += (this.dist.x)/(2000) + this.adjVlocity.x/10 + Math.random()-.5;
-			this.velocity.y += (this.dist.y)/(2000) + this.adjVlocity.y/10 + Math.random()-.5;
-			this.velocity.x = this.velocity.x/1.02;
-			this.velocity.y = this.velocity.y/1.02;
+			this.velocity.x += (this.dist.x)/(800*this.adjSpeed) + this.adjVlocity.x/10 + Math.random()-.5;
+			this.velocity.y += (this.dist.y)/(800*this.adjSpeed) + this.adjVlocity.y/10 + Math.random()-.5;
+			if(this.adjSpeed<2){
+				this.velocity.x = this.velocity.x/1.04;
+				this.velocity.y = this.velocity.y/1.04;
+			}else{
+				this.velocity.x = this.velocity.x/1.02;
+				this.velocity.y = this.velocity.y/1.02;
+			}
 
 			this.pos.x += this.velocity.x;
 			this.pos.y += this.velocity.y;
@@ -92,6 +98,7 @@ class Enemy {
 	shoot(){
 		let pos = Object.assign({},this.pos);
 		let angle = Object.assign({},this.angle);
+		angle.z += (Math.random()*.6-.3)*((player.velocity.y+player.velocity.x)/3);
 		for (var i = 0; i < game.elements.bullet.length; i++) {
 			if(!game.elements.bullet[i].isDisp){
 				game.elements.bullet[i].spawn(pos, angle, this.damage, this.team);
