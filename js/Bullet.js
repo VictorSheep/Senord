@@ -17,6 +17,7 @@ class Bullet{
 
 		/* Caracteristiques */
 		this.speed      = 8;
+		this.hit 		= true;
 	}
 
 
@@ -143,5 +144,6 @@ class Bullet{
 		}
 		this.init();
 		this.isDisp= true;
+		this.hit = true;
 	}
 }

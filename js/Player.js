@@ -19,7 +19,7 @@ class Player{
 		this.geometry 		= new THREE.BoxGeometry( this.size.width, this.size.height, this.size.depth );
 		this.material 		= new THREE.MeshBasicMaterial( {color: 0x0000ff, wireframe:true} );
 		this.obj	  		= new THREE.Mesh( this.geometry, this.material );
-		this.lifeGeometry 	= new THREE.BoxGeometry( this.life/2, 5, 1 );
+		this.lifeGeometry 	= new THREE.BoxGeometry( 70, 5, 1 );
 		this.lifeMaterial 	= new THREE.MeshBasicMaterial( {color: 0xff0000} );
 		this.lifeBarre		= new THREE.Mesh( this.lifeGeometry, this.lifeMaterial );
 
@@ -69,7 +69,7 @@ class Player{
 		this.velocity.y=this.velocity.y/1.08;
 
 		//diminution de la barre de vie
-		this.lifeBarre.scale.x=this.life/100;
+		this.lifeBarre.scale.x=this.life/this.life_max;
 
 		if (this.life<=0){
 			this.kill();
