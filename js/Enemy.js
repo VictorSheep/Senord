@@ -112,6 +112,6 @@ class Enemy {
 	kill(){
 		this.isDisp = false;
 	    scene.remove( this.obj );
-	    game.score+=this.scoreGiven;
+	    game.updateScore(this.scoreGiven);
 	}
 }

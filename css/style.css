@@ -15,12 +15,17 @@ body{
 	font-size: 20px;
 }
 
-h1{
-	font-size: 5em;
+h1, h2 {
 	color: #FFEEFF;
 	text-align: center;
+}
+h1{
 	margin-bottom: 15vh;
-	margin-top: 18vh;
+	font-size: 5em;
+	margin-top: 17vh;
+}
+h2{
+	margin-bottom: 9vh;
 }
 
 a{

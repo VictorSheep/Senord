@@ -14,6 +14,7 @@ var game={
 	score:0,
 	endGame:false,
 	init(){
+		this.updateScore(0);
 		//création de l'instance du player
 		this.elements.player.push( new Player({x:0,y:100,z:0},100,{x:0,y:0,z:0},{width:32,height:12,depth:10},1) );
 		//création de l'instance de l'usine
@@ -106,9 +107,9 @@ var game={
     	}
     	this.nbEnemy = this.getNbIsDisp("enemy");
     	if (this.nbEnemy<=0){
-    		this.score+=100*this.round;
-    		this.round++;
     		this.spawnEnemy(2+this.round*2);
+    		this.updateScore(100*this.round);
+    		this.round++;
     	}
     	this.collide();
 	},
@@ -120,6 +121,10 @@ var game={
 				this.elements[prop][i].render();
 			}
 		}
+	},
+	updateScore(nb){
+		this.score += nb;
+		window.localStorage.setItem('score', this.score);
 	},
 	getNbIsDisp(element){
 		let result = 0;
