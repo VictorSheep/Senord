@@ -13,6 +13,7 @@ var game={
 	round:1,
 	score:0,
 	endGame:false,
+	cube:{},
 	init(){
 		//création de l'instance du player
 		this.elements.player.push( new Player({x:0,y:100,z:0},100,{x:0,y:0,z:0},{width:32,height:12,depth:10},1) );
@@ -27,19 +28,52 @@ var game={
 			this.elements.turret.push( new Turret() );
 		}
 
-		for (let i = 50; i > 0; i--) {
-			this.elements.enemy.push( new Enemy() );
-		}
+		// for (let i = 50; i > 0; i--) {
+		// 	this.elements.enemy.push( new Enemy() );
+		// }
 
 		for (var i = 0; i < 20; i++) {
 			this.elements.particle.push( new Particle() )
 		}
 
+		var light = new THREE.AmbientLight( 0xffffff ); // soft white light
+		scene.add( light );
+
 		this.spawnEnemy(3);
 
-		//this.elements.turret[0].spawn({x:-200,y:100,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
-		//this.elements.turret[1].spawn({x:100,y:200,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
-		//this.elements.turret[2].spawn({x:100,y:-100,z:0}, 700, {x:0,y:0,z:0}, {radius:10,width:20,height:30});
+		var geometry = new THREE.BoxGeometry( 100, 100, 100 );
+		var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+		this.cube = new THREE.Mesh( geometry, material );
+		scene.add( this.cube );
+		this.cube.position.y -= 100;
+		self = this;
+		var onProgress = function ( xhr ) {
+			if ( xhr.lengthComputable ) {
+					var percentComplete = xhr.loaded / xhr.total * 100;
+					console.log( Math.round(percentComplete, 2) + '% downloaded' );
+				}
+			};
+			var onError = function ( xhr ) { };
+			THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
+			var mtlLoader = new THREE.MTLLoader();
+			mtlLoader.setPath( 'assets/obj/textures/' );
+			mtlLoader.load( 'gemini.mtl', function( materials ) {
+				materials.preload();
+				var objLoader = new THREE.OBJLoader();
+				objLoader.setMaterials( materials );
+				objLoader.setPath( 'assets/obj/source/' );
+				objLoader.load( 'gemini.obj', function ( object ) {
+
+					console.log(self.cube)
+
+					self.cube.geometry = object.children[0].geometry;
+					self.cube.geometry.scale(70, 70 , 70);
+					self.cube.geometry.rotateX(Math.PI/2) ;
+					self.cube.geometry.rotateZ(-Math.PI/2) ;
+					self.cube.material = object.children[0].material;
+			}, onProgress, onError );
+		});
+
 	},
 	update(){
 		//affichage du score

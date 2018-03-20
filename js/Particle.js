@@ -21,7 +21,6 @@ class Particle{
 	init(){
 		/* Modelisation */
 		/* la tourelle */
-		console.log("coucou");
 		this.geometry 			= new THREE.SphereGeometry( this.size.radius, this.size.width, this.size.heigth );
 		this.material 			= new THREE.MeshBasicMaterial( {color: 0xefefef} );
 		this.obj	  			= new THREE.Mesh( this.geometry, this.material );
