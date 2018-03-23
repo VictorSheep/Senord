@@ -6,7 +6,7 @@ class Player{
 		this.size		= size;
 
 		/* Mouvements */
-		this.rotation	= {x:0, y:0, z:0};		
+		this.rotation	= {x:0, y:0, z:0};
 		this.velocity	= {x:0, y:0, z:0};
 
 		/* Caracteristiques */
@@ -16,8 +16,10 @@ class Player{
 		this.hitbox			= this.size.height;
 
 		/* Modelisation */
-		this.geometry 		= new THREE.BoxGeometry( this.size.width, this.size.height, this.size.depth );
-		this.material 		= new THREE.MeshBasicMaterial( {color: 0x0000ff, wireframe:true} );
+		//this.geometry 		= new THREE.BoxGeometry( this.size.width, this.size.height, this.size.depth );
+		this.geometry 		= loader.model3D.player.geometry;
+		//this.material 		= new THREE.MeshBasicMaterial( {color: 0x0000ff} );
+		this.material 		= loader.model3D.player.material;
 		this.obj	  		= new THREE.Mesh( this.geometry, this.material );
 		this.lifeGeometry 	= new THREE.BoxGeometry( 70, 5, 1 );
 		this.lifeMaterial 	= new THREE.MeshBasicMaterial( {color: 0xff0000} );
@@ -76,11 +78,13 @@ class Player{
 		}
 	}
 	render(){
-		this.lifeBarre.position.set(this.pos.x,this.pos.y-this.size.width,this.pos.z);
+		this.lifeBarre.position.set(this.pos.x,this.pos.y-this.size.width*1.5,this.pos.z);
 
 		this.obj.position.set(this.pos.x,this.pos.y,this.pos.z);
 
 		this.obj.rotation.set(this.angle.x,this.angle.y,this.angle.z);
+
+		this.obj.scale.set(50,50,50);
 	}
 	kill(){
 		scene.remove(this.obj);

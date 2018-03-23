@@ -23,15 +23,15 @@ class Turret{
 		this.count 		= 0;
 		this.rate		= Math.random()*10+60;
 
+		/* Modelisation */
+		/* la tourelle */
+		this.geometry 			= loader.model3D.turret.geometry;
+		this.material 			= loader.model3D.turret.material;
+		this.obj	  			= new THREE.Mesh( this.geometry, this.material );
 	}
 
 	/* Methodes */
 	init(){
-		/* Modelisation */
-		/* la tourelle */
-		this.geometry 			= new THREE.SphereGeometry( this.size.radius, this.size.width, this.size.heigth );
-		this.material 			= new THREE.MeshBasicMaterial( {color: 0x00ffff} );
-		this.obj	  			= new THREE.Mesh( this.geometry, this.material );
 		/* la range */
 		this.rangeRingGeometry 	= new THREE.RingGeometry( this.range, this.range+2, 32 );
 		this.rangeRingMaterial 	= new THREE.MeshBasicMaterial( {color: 0x00ffff,transparent:true,opacity:0.3} );
@@ -90,7 +90,7 @@ class Turret{
 	render(){
 		if (this.isDisp) {
 			this.obj.position.set(this.pos.x,this.pos.y,this.pos.z);
-
+			this.obj.scale.set(30,30,30);
 			this.obj.rotation.set(this.angle.x,this.angle.y,this.angle.z);
 		}
 	}
@@ -125,12 +125,12 @@ class Turret{
 	spawn(pos, time_max, angle, size){
 		/* Initialisation de la Turret */
 		this.time_max = time_max;
-		this.time = this.time_max
-		this.size 	= size;
+		this.time 	  = this.time_max
+		this.size 	  = size;
 		/* Position */
-		this.pos	= pos;
-		this.angle  = angle;
+		this.pos	  = pos;
+		this.angle    = angle;
 		this.init();
-		this.isDisp = true;
+		this.isDisp   = true;
 	}
 }
