@@ -1,5 +1,5 @@
 class Enemy {
-	constructor() {
+	constructor(Object3D) {
 		/* Caracteristiques */
 		this.isDisp 	= false;
 		this.team		= 2;
@@ -41,8 +41,8 @@ class Enemy {
 	}
 
 	init(){
-		this.geometry = new THREE.BoxGeometry( this.size.x, this.size.y, this.size.z );
-		this.material = new THREE.MeshBasicMaterial( {color: 0xEF4444} );
+		this.geometry = loader.model3D.enemy.geometry;
+		this.material = loader.model3D.enemy.material;
 		this.obj = new THREE.Mesh( this.geometry, this.material );
 		this.obj.position.set(this.pos.x, this.pos.y, this.pos.z);
 		this.obj.rotation.set(this.angle.x, this.angle.y, this.angle.z);
@@ -94,6 +94,7 @@ class Enemy {
 		if (this.isDisp) {
 			this.obj.position.set(this.pos.x, this.pos.y, this.pos.z);
 			this.obj.rotation.set(this.angle.x, this.angle.y, this.angle.z);	
+			this.obj.scale.set(30,30,30);	
 		}
 	}
 

@@ -12,12 +12,16 @@ class Factory{
 		this.nbT 			= 0;
 
 		/* Modelisation */
-		this.geometry 		= new THREE.BoxGeometry( this.size.width, this.size.height, this.size.depth );
-		this.material 		= new THREE.MeshBasicMaterial( {color: 0xffffff, wireframe:true} );
+		this.geometry 		= loader.model3D.factory.geometry;
+		this.material 		= loader.model3D.factory.material;
 		this.obj	  		= new THREE.Mesh( this.geometry, this.material );
-		this.timeGeometry 	= new THREE.BoxGeometry( this.size.width*1.5, 5, 1 );
+		this.timeGeometry 	= new THREE.BoxGeometry( this.size.width*3, 5, 10 );
 		this.timeMaterial 	= new THREE.MeshBasicMaterial( {color: 0x00ff00} );
 		this.timeBarre		= new THREE.Mesh( this.timeGeometry, this.timeMaterial );
+
+		/* Spawn Turret */
+		this.turretSpawnRadius = 90;
+		this.timeTurretActive = 700;
 
 		/* init */
 		this.init();
@@ -38,9 +42,11 @@ class Factory{
 		this.generateTurret();
 	}
 	render(){
-		this.timeBarre.position.set(this.pos.x,this.pos.y+this.size.width/1.5,this.pos.z);
+		this.timeBarre.position.set(this.pos.x,this.pos.y+this.size.width*1.7,this.pos.z);
 
 		this.obj.position.set(this.pos.x,this.pos.y,this.pos.z);
+
+		this.obj.scale.set(this.size.width,this.size.height,this.size.depht);
 	}
 	generateTurret(){
 		if (game.getNbIsDisp("turret")<this.nbTMax) {
@@ -49,14 +55,13 @@ class Factory{
 					let turret = game.elements.turret[i];
 					if (!turret.isDisp) {
 						let pos = {
-							x:Math.cos(this.nbT/(Math.PI/1.6))*60,
-							y:Math.sin(this.nbT/(Math.PI/1.6))*60,
+							x:Math.cos(this.nbT/(Math.PI/1.6))*this.turretSpawnRadius,
+							y:Math.sin(this.nbT/(Math.PI/1.6))*this.turretSpawnRadius,
 							z:0
 						}
-						let time_max = 700;
 						let angle = {x:0,y:0,z:0};
 						let size = {radius:10,width:20,height:30};
-						turret.spawn(pos,time_max,angle,size);
+						turret.spawn(pos,this.timeTurretActive,angle,size);
 						this.nbT++;
 						break;
 					};
