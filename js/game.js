@@ -1,4 +1,4 @@
-var game={
+var game = {
 	scores	:0,
 	elements:{
 		player	:[],
@@ -13,75 +13,45 @@ var game={
 	round:1,
 	score:0,
 	endGame:false,
-	cube:{},
 	init(){
-		//création de l'instance du player
-		this.elements.player.push( new Player({x:0,y:100,z:0},100,{x:0,y:0,z:0},{width:32,height:12,depth:10},1) );
+		let light = new THREE.AmbientLight( 0x202020 ); // soft white light
+		light.intensity = 10;
+		scene.add( light );
+
 		//création de l'instance de l'usine
-		this.elements.factory.push( new Factory({x:0,y:0,z:0},500,{x:0,y:0,z:0},{width:50,height:50,depth:10}, 10));
+		this.elements.factory.push( new Factory({x:0,y:0,z:0},300,{x:0,y:0,z:0},{width:40,height:40,depth:40}, 10));
 		//Pool de projectilles
 		for (let i = 0; i < 200; i++) {
 			this.elements.bullet.push( new Bullet() );
-		}
-		//Pool de tourelles
-		for (let i = 0; i < this.elements.factory[0].nbTMax; i++) {
-			this.elements.turret.push( new Turret() );
 		}
 
 		// for (let i = 50; i > 0; i--) {
 		// 	this.elements.enemy.push( new Enemy() );
 		// }
 
-		for (var i = 0; i < 20; i++) {
+		for (let i = 0; i < 20; i++) {
 			this.elements.particle.push( new Particle() )
 		}
 
-		var light = new THREE.AmbientLight( 0xffffff ); // soft white light
-		scene.add( light );
+		//Pool de tourelles
+		for (let i = 0; i < this.elements.factory[0].nbTMax; i++) {
+			this.elements.turret.push( new Turret() );
+			this.elements.turret[i].obj.scale.set(20,20,20);
+		}
+
+		//création de l'instance du player
+		this.elements.player.push( new Player({x:0,y:100,z:0},100,{x:0,y:0,z:0},{width:32,height:12,depth:10},1) );
+		this.elements.player[0].obj.scale.set(20,20,20);
 
 		this.spawnEnemy(3);
-
-		var geometry = new THREE.BoxGeometry( 100, 100, 100 );
-		var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-		this.cube = new THREE.Mesh( geometry, material );
-		scene.add( this.cube );
-		this.cube.position.y -= 100;
-		self = this;
-		var onProgress = function ( xhr ) {
-			if ( xhr.lengthComputable ) {
-					var percentComplete = xhr.loaded / xhr.total * 100;
-					console.log( Math.round(percentComplete, 2) + '% downloaded' );
-				}
-			};
-			var onError = function ( xhr ) { };
-			THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
-			var mtlLoader = new THREE.MTLLoader();
-			mtlLoader.setPath( 'assets/obj/textures/' );
-			mtlLoader.load( 'gemini.mtl', function( materials ) {
-				materials.preload();
-				var objLoader = new THREE.OBJLoader();
-				objLoader.setMaterials( materials );
-				objLoader.setPath( 'assets/obj/source/' );
-				objLoader.load( 'gemini.obj', function ( object ) {
-
-					console.log(self.cube)
-
-					self.cube.geometry = object.children[0].geometry;
-					self.cube.geometry.scale(70, 70 , 70);
-					self.cube.geometry.rotateX(Math.PI/2) ;
-					self.cube.geometry.rotateZ(-Math.PI/2) ;
-					self.cube.material = object.children[0].material;
-			}, onProgress, onError );
-		});
-
 	},
 	update(){
 		//affichage du score
 		$(".score span").html(this.score);
 		player=this.elements.player[0];
-		for (var prop in this.elements){
+		for (let prop in this.elements){
 			/* update de chaque player */
-			for (var i = this.elements[prop].length - 1; i >= 0; i--) {
+			for (let i = this.elements[prop].length - 1; i >= 0; i--) {
 				this.elements[prop][i].update(player.pos);
 			}
 		}
@@ -94,7 +64,7 @@ var game={
 
     	if (inputs.isDown(inputs.ACTION)){
     		inputs._pressed[inputs.ACTION]=false;
-    		for (var i = 0; i < this.elements.turret.length; i++) {
+    		for (let i = 0; i < this.elements.turret.length; i++) {
     			let turret=this.elements.turret[i];
     			// pick up turret 
     			if (!turret.picked && !turret.activate) {
@@ -111,12 +81,12 @@ var game={
     	};
     	if (inputs.isDown(inputs.E)){
     		inputs._pressed[inputs.E]=false;
-    		for (var i = 0; i < this.elements.turret.length; i++) {
+    		for (let i = 0; i < this.elements.turret.length; i++) {
     			let turret=this.elements.turret[i];
     			// launch turret 
 				if (turret.picked){
 					let isLaunchable = true;
-					for (var j = 0; j < this.elements.turret.length; j++) {
+					for (let j = 0; j < this.elements.turret.length; j++) {
 						// calcul de distance entre la tourelle a poser et toute celle qui sont poser
 						let turret2=this.elements.turret[j];
 						if (!turret2.picked) {
@@ -148,9 +118,9 @@ var game={
 	},
 
 	render(){
-		for (var prop in this.elements){
+		for (let prop in this.elements){
 			/* update de chaque player */
-			for (var i = this.elements[prop].length - 1; i >= 0; i--) {
+			for (let i = this.elements[prop].length - 1; i >= 0; i--) {
 				this.elements[prop][i].render();
 			}
 		}
@@ -159,17 +129,17 @@ var game={
 		let result = 0;
 		switch(element){
 			case "enemy":
-				for (var i = 0; i < this.elements.enemy.length; i++) {
+				for (let i = 0; i < this.elements.enemy.length; i++) {
 					if (this.elements.enemy[i].isDisp) result++;
 				}
 			break;
 			case "turret":
-				for (var i = 0; i < this.elements.turret.length; i++) {
+				for (let i = 0; i < this.elements.turret.length; i++) {
 					if (this.elements.turret[i].isDisp) result++;
 				}
 			break;
 			case "factory":
-				for (var i = 0; i < this.elements.factory.length; i++) {
+				for (let i = 0; i < this.elements.factory.length; i++) {
 					if (this.elements.factory[i].isDisp) result++;
 				}
 			break;
