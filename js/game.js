@@ -27,9 +27,9 @@ var game = {
 			this.elements.bullet.push( new Bullet() );
 		}
 
-		// for (let i = 50; i > 0; i--) {
-		// 	this.elements.enemy.push( new Enemy() );
-		// }
+		for (let i = 50; i > 0; i--) {
+			this.elements.enemy.push( new Enemy() );
+		}
 
 		for (let i = 0; i < 20; i++) {
 			this.elements.particle.push( new Particle() )
