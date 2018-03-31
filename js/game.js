@@ -23,15 +23,15 @@ var game = {
 		scene.add( light );
 
 		//création de l'instance de l'usine
-		this.elements.factory.push( new Factory({x:0,y:0,z:0},300,{x:0,y:0,z:0},{width:40,height:40,depth:40}, 10));
+		this.elements.factory.push( new Factory({x:0,y:0,z:-10},300,{x:0,y:0,z:0},{width:40,height:40,depth:40}, 10));
 		//Pool de projectilles
 		for (let i = 0; i < 200; i++) {
 			this.elements.bullet.push( new Bullet() );
 		}
 
-		// for (let i = 50; i > 0; i--) {
-		// 	this.elements.enemy.push( new Enemy() );
-		// }
+		for (let i = 50; i > 0; i--) {
+			this.elements.enemy.push( new Enemy() );
+		}
 
 		for (let i = 0; i < 20; i++) {
 			this.elements.particle.push( new Particle() )
@@ -72,49 +72,59 @@ var game = {
     	if (inputsGamepadStates.JOYPAD_X>0.2 || inputsGamepadStates.JOYPAD_X<-0.2) player.gamepadMoveX(inputsGamepadStates.JOYPAD_X);
     	if (inputsGamepadStates.JOYPAD_Y>0.2 || inputsGamepadStates.JOYPAD_Y<-0.2) player.gamepadMoveY(inputsGamepadStates.JOYPAD_Y);
 
-    	if (inputs.isDown(inputs.ACTION) || inputsGamepadStates.PICK){
+    	if (player.canPick && (inputs.isDown(inputs.ACTION) || inputsGamepadStates.PICK)){
     		inputs._pressed[inputs.ACTION] = false;
-    		for (let i = 0; i < this.elements.turret.length; i++) {
-    			let turret=this.elements.turret[i];
-    			// pick up turret 
-    			if (!turret.picked && !turret.activate) {
-    				// calcul de distance entre turret et player
-	    			turret.dist.x = player.pos.x-turret.pos.x;
-					turret.dist.y = player.pos.y-turret.pos.y;
-					turret.dist.dir = Math.sqrt(turret.dist.x*turret.dist.x + turret.dist.y*turret.dist.y);
-					//si la tourrelle est suffisament pret on active ça methode pickUp
-					if (turret.dist.dir<player.size.width*1.5) {
-						turret.pickUp();
+    		if (this.elements.turret.length>0) {
+	    		for (let i = 0; i < this.elements.turret.length; i++) {
+	    			let turret=this.elements.turret[i];
+	    			// pick up turret 
+	    			if (!turret.picked && !turret.activate && turret.isDisp) {
+	    				// calcul de distance entre turret et player
+		    			turret.dist.x = player.pos.x-turret.pos.x;
+						turret.dist.y = player.pos.y-turret.pos.y;
+						turret.dist.dir = Math.sqrt(turret.dist.x*turret.dist.x + turret.dist.y*turret.dist.y);
+						//si la tourrelle est suffisament pret on active ça methode pickUp
+						if (turret.dist.dir<player.size.width*1.5) {
+							turret.pickUp();
+							player.canPick = false;
+	    					setTimeout(function(){
+							    player.canPick = true;
+							},500);
+							break;
+						};
 					};
-				}
-			};
+				};
+			}
     	};
+
     	if (player.canLaunch && (inputs.isDown(inputs.E) || inputsGamepadStates.LAUNCH)){
     		inputs._pressed[inputs.E]=false;
-    		for (let i = 0; i < this.elements.turret.length; i++) {
-    			let turret=this.elements.turret[i];
-    			// launch turret 
-				if (turret.picked){
-					let isLaunchable = true;
-					for (let j = 0; j < this.elements.turret.length; j++) {
-						// calcul de distance entre la tourelle a poser et toute celle qui sont poser
-						let turret2=this.elements.turret[j];
-						if (!turret2.picked) {
-	    					turret.dist.x = turret2.pos.x-turret.pos.x;
-							turret.dist.y = turret2.pos.y-turret.pos.y;
-							turret.dist.dir = Math.sqrt(turret.dist.x*turret.dist.x + turret.dist.y*turret.dist.y);
-							if (turret.dist.dir<=turret.size.radius*2) isLaunchable=false;
+    		if (this.elements.turret.length>0) {
+	    		for (let i = 0; i < this.elements.turret.length; i++) {
+	    			let turret=this.elements.turret[i];
+	    			// launch turret 
+					if (turret.picked){
+						let isLaunchable = true;
+						for (let j = 0; j < this.elements.turret.length; j++) {
+							// calcul de distance entre la tourelle a poser et toute celle qui sont poser
+							let turret2=this.elements.turret[j];
+							if (!turret2.picked) {
+		    					turret.dist.x = turret2.pos.x-turret.pos.x;
+								turret.dist.y = turret2.pos.y-turret.pos.y;
+								turret.dist.dir = Math.sqrt(turret.dist.x*turret.dist.x + turret.dist.y*turret.dist.y);
+								if (turret.dist.dir<=turret.size.radius*2) isLaunchable=false;
+							}
 						}
-					}
-					if (isLaunchable) {
-    					turret.launch();
-    					player.canLaunch = false;
-    					setTimeout(function(){
-						    player.canLaunch = true;
-						},500);
-    				};
-    				break;
-    			};
+						if (isLaunchable) {
+	    					turret.launch();
+	    					player.canLaunch = false;
+	    					setTimeout(function(){
+							    player.canLaunch = true;
+							},500);
+	    				};
+	    				break;
+	    			};
+	    		}
     		}
     	}
 

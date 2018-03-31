@@ -38,7 +38,7 @@ class Factory{
 	}
 	update(){
 		//diminution de la barre de vie
-		this.timeBarre.scale.x=this.time/this.time_max;
+		this.timeBarre.scale.x=this.time/this.time_max+0.001;
 		this.generateTurret();
 	}
 	render(){
@@ -60,7 +60,7 @@ class Factory{
 							z:0
 						}
 						let angle = {x:0,y:0,z:0};
-						let size = {radius:10,width:20,height:30};
+						let size = {radius:20,width:30,height:30};
 						turret.spawn(pos,this.timeTurretActive,angle,size);
 						this.nbT++;
 						break;

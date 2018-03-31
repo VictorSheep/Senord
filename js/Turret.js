@@ -4,7 +4,7 @@ class Turret{
 		this.pos		= {x:0,y:0,z:0};
 		this.angle      = {x:0,y:0,z:0};
 		this.size		= {radius:10,width:10,height:10};
-		this.dist		= {x:0,y:0,z:0};
+		this.dist		= {x:0,y:0,dir:0};
 
 		/* Mouvements */
 		this.rotation	= {x:0, y:0, z:0};		
@@ -13,10 +13,10 @@ class Turret{
 		this.team		= 1;
 		this.time 		= 0;
 		this.time_max	= 0;
-		this.activate   = false;
-		this.picked     = false;
 		this.damage 	= 10;
 		this.range	 	= 300;
+		this.activate   = false;
+		this.picked     = false;
 		this.isDisp 	= false;
 
 		/* Munition */
@@ -34,14 +34,13 @@ class Turret{
 	init(){
 		/* la range */
 		this.rangeRingGeometry 	= new THREE.RingGeometry( this.range, this.range+2, 32 );
-		this.rangeRingMaterial 	= new THREE.MeshBasicMaterial( {color: 0x00ffff,transparent:true,opacity:0.3} );
+		this.rangeRingMaterial 	= new THREE.MeshBasicMaterial( {color: 0x00ffff,transparent:true,opacity:0.6} );
 		this.rangeRing			= new THREE.Mesh( this.rangeRingGeometry, this.rangeRingMaterial );
 		/* le temps restant */
-		this.timeGeometry 		= new THREE.RingGeometry( this.size.radius+5, this.size.radius+10, 32 );
-		this.timeMaterial 		= new THREE.MeshBasicMaterial( {color: 0x00ff00,transparent:true,opacity:0.6} );
+		this.timeGeometry 		= new THREE.RingGeometry( this.range, this.range+2, 32 );
+		this.timeMaterial 		= new THREE.MeshBasicMaterial( {color: 0x00ff00} );
 		this.timeBarre	  	    = new THREE.Mesh( this.timeGeometry, this.timeMaterial );
 
-		this.timeBarre.position.set(this.pos.x,this.pos.y,100);
 		this.obj.position.set(this.pos.x,this.pos.y,0);
 		this.obj.rotation.set(this.angle.x,this.angle.y,this.angle.z);
 		scene.add(this.obj);
@@ -79,10 +78,10 @@ class Turret{
 			//check the time
 			if (this.activate) {
 				this.time-=1;
-				this.timeBarre.geometry= new THREE.RingGeometry( this.size.radius+5, this.size.radius+10, 32, 8,Math.PI, this.time/this.time_max*(2*Math.PI) );
+				this.timeBarre.geometry= new THREE.RingGeometry( this.size.radius+1, this.size.radius+2, 32, 8,Math.PI, this.time/this.time_max*(2*Math.PI) );
 				if (this.time<=0) {
-					this.kill();
 					this.activate=false;
+					this.kill();
 				}
 			}
 		}
@@ -90,7 +89,7 @@ class Turret{
 	render(){
 		if (this.isDisp) {
 			this.obj.position.set(this.pos.x,this.pos.y,this.pos.z);
-			this.obj.scale.set(30,30,30);
+			this.obj.scale.set(this.size.width,this.size.height,this.size.depht);
 			this.obj.rotation.set(this.angle.x,this.angle.y,this.angle.z);
 		}
 	}
@@ -101,16 +100,19 @@ class Turret{
 	    scene.remove( this.timeBarre );
 	}
 	pickUp(){
-		this.picked=true;
-		this.activate=false;
+		if (!this.picked) {
+			this.picked=true;
+		}
 	}
 	launch(){
-		this.picked=false;
-		this.activate=true;
-		this.rangeRing.position.set(this.pos.x,this.pos.y,this.pos.z);
-		this.timeBarre.position.set(this.pos.x,this.pos.y,this.pos.z);
-		scene.add(this.rangeRing); 
-		scene.add(this.timeBarre); 
+		if (this.picked && this.rangeRing && this.timeBarre) {
+			this.picked=false;
+			this.activate=true;
+			this.rangeRing.position.set(this.pos.x,this.pos.y,this.pos.z-11);
+			this.timeBarre.position.set(this.pos.x,this.pos.y,this.pos.z-9);
+			scene.add(this.rangeRing);
+			scene.add(this.timeBarre);
+		}
 	}
 	shoot(){
 		let pos = Object.assign({},this.pos);

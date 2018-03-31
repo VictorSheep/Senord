@@ -15,6 +15,7 @@ class Player{
 		this.speed      	= speed;
 		this.hitbox			= this.size.height;
 		this.canLaunch      = true;
+		this.canPick        = true;
 
 		/* Modelisation */
 		this.geometry 		= loader.model3D.player.geometry;
