@@ -14,6 +14,8 @@ var game = {
 	score:0,
 	endGame:false,
 	init(){
+
+		let inputsGamepadStates = inputsGamepad.gamepadOne();
 		this.updateScore(0);
 
 		let light = new THREE.AmbientLight( 0x202020 ); // soft white light
@@ -27,9 +29,9 @@ var game = {
 			this.elements.bullet.push( new Bullet() );
 		}
 
-		for (let i = 50; i > 0; i--) {
-			this.elements.enemy.push( new Enemy() );
-		}
+		// for (let i = 50; i > 0; i--) {
+		// 	this.elements.enemy.push( new Enemy() );
+		// }
 
 		for (let i = 0; i < 20; i++) {
 			this.elements.particle.push( new Particle() )
@@ -38,16 +40,17 @@ var game = {
 		//Pool de tourelles
 		for (let i = 0; i < this.elements.factory[0].nbTMax; i++) {
 			this.elements.turret.push( new Turret() );
-			this.elements.turret[i].obj.scale.set(20,20,20);
 		}
 
 		//création de l'instance du player
 		this.elements.player.push( new Player({x:0,y:100,z:0},100,{x:0,y:0,z:0},{width:32,height:12,depth:10},1) );
-		this.elements.player[0].obj.scale.set(20,20,20);
 
 		this.spawnEnemy(3);
 	},
 	update(){
+
+		inputsGamepadStates = inputsGamepad.gamepadOne();
+
 		//affichage du score
 		$(".score span").html(this.score);
 		player=this.elements.player[0];
@@ -59,13 +62,18 @@ var game = {
 		}
 		/* gestion des inputs*/
     	/* isDown */
+    	// inputs for keyboard movements
 		if (inputs.isDown(inputs.UP)) player.moveUp();
     	if (inputs.isDown(inputs.LEFT)) player.moveLeft();
     	if (inputs.isDown(inputs.DOWN)) player.moveDown();
     	if (inputs.isDown(inputs.RIGHT)) player.moveRight();
 
-    	if (inputs.isDown(inputs.ACTION)){
-    		inputs._pressed[inputs.ACTION]=false;
+    	// inputs for gamepad movements
+    	if (inputsGamepadStates.JOYPAD_X>0.2 || inputsGamepadStates.JOYPAD_X<-0.2) player.gamepadMoveX(inputsGamepadStates.JOYPAD_X);
+    	if (inputsGamepadStates.JOYPAD_Y>0.2 || inputsGamepadStates.JOYPAD_Y<-0.2) player.gamepadMoveY(inputsGamepadStates.JOYPAD_Y);
+
+    	if (inputs.isDown(inputs.ACTION) || inputsGamepadStates.PICK){
+    		inputs._pressed[inputs.ACTION] = false;
     		for (let i = 0; i < this.elements.turret.length; i++) {
     			let turret=this.elements.turret[i];
     			// pick up turret 
@@ -81,7 +89,7 @@ var game = {
 				}
 			};
     	};
-    	if (inputs.isDown(inputs.E)){
+    	if (player.canLaunch && (inputs.isDown(inputs.E) || inputsGamepadStates.LAUNCH)){
     		inputs._pressed[inputs.E]=false;
     		for (let i = 0; i < this.elements.turret.length; i++) {
     			let turret=this.elements.turret[i];
@@ -100,6 +108,10 @@ var game = {
 					}
 					if (isLaunchable) {
     					turret.launch();
+    					player.canLaunch = false;
+    					setTimeout(function(){
+						    player.canLaunch = true;
+						},500);
     				};
     				break;
     			};

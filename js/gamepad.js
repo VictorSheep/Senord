@@ -4,7 +4,7 @@ let inputsGamepad = {
 
 		let states = {
 			PICK 	   : false,
-			DROP 	   : false,
+			LAUNCH 	   : false,
 			PAUSE      : false,
 			JOYPAD_X   : 0,
 			JOYPAD_Y   : 0
@@ -16,11 +16,11 @@ let inputsGamepad = {
 		for (let i = 0; i < gp.buttons.length; i++) {
 			switch (i) {
 				case 0:
-					if(!states.DROP) states.DROP = gp.buttons[0].pressed;
+					if(!states.PICK) states.PICK = gp.buttons[0].pressed;
 				break;
 
 				case 2:
-					if(!states.PICK) states.PICK  = gp.buttons[2].pressed;
+					if(!states.LAUNCH) states.LAUNCH  = gp.buttons[2].pressed;
 				break;
 
 				case 4:
@@ -28,7 +28,7 @@ let inputsGamepad = {
 				break;
 
 				case 5:
-					if(!states.DROP) states.DROP = gp.buttons[5].pressed;
+					if(!states.LAUNCH) states.LAUNCH = gp.buttons[5].pressed;
 				break;
 
 				case 6:
@@ -36,7 +36,7 @@ let inputsGamepad = {
 				break;
 
 				case 7 :
-					if(!states.DROP) states.DROP = gp.buttons[7].pressed;
+					if(!states.LAUNCH) states.LAUNCH = gp.buttons[7].pressed;
 				break;
 
 				case 9:
@@ -44,8 +44,8 @@ let inputsGamepad = {
 				break;
 			}
 		}
-		states.joystick1x = gp.axes[0];
-		states.joystick1y = gp.axes[1];
+		states.JOYPAD_X = gp.axes[0];
+		states.JOYPAD_Y = gp.axes[1];
 
 		return states;
 	}

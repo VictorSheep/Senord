@@ -1,26 +1,27 @@
 class Player{
 	constructor(pos, life_max, angle, size, speed){
 		/* Position */
-		this.pos		= pos;
-		this.angle      = angle;
-		this.size		= size;
+		this.pos			= pos;
+		this.angle      	= angle;
+		this.size			= size;
 
 		/* Mouvements */
-		this.rotation	= {x:0, y:0, z:0};
-		this.velocity	= {x:0, y:0, z:0};
+		this.rotation		= {x:0, y:0, z:0};
+		this.velocity		= {x:0, y:0, z:0};
 
 		/* Caracteristiques */
 		this.life 			= life_max;
 		this.life_max		= life_max;
 		this.speed      	= speed;
 		this.hitbox			= this.size.height;
+		this.canLaunch      = true;
 
 		/* Modelisation */
-		//this.geometry 		= new THREE.BoxGeometry( this.size.width, this.size.height, this.size.depth );
 		this.geometry 		= loader.model3D.player.geometry;
-		//this.material 		= new THREE.MeshBasicMaterial( {color: 0x0000ff} );
 		this.material 		= loader.model3D.player.material;
 		this.obj	  		= new THREE.Mesh( this.geometry, this.material );
+
+		/* Life Barre Modelisation */
 		this.lifeGeometry 	= new THREE.BoxGeometry( 70, 5, 1 );
 		this.lifeMaterial 	= new THREE.MeshBasicMaterial( {color: 0xff0000} );
 		this.lifeBarre		= new THREE.Mesh( this.lifeGeometry, this.lifeMaterial );
@@ -41,6 +42,12 @@ class Player{
 	}
 	moveDown(){
 		this.velocity.y+=this.speed*-1;
+	}
+	gamepadMoveX(joystickXSpeed){
+		this.velocity.x+=this.speed*joystickXSpeed;
+	}
+	gamepadMoveY(joystickYSpeed){
+		this.velocity.y-=this.speed*joystickYSpeed;
 	}
 
 	init(){

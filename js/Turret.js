@@ -3,7 +3,7 @@ class Turret{
 		/* Position */
 		this.pos		= {x:0,y:0,z:0};
 		this.angle      = {x:0,y:0,z:0};
-		this.size		= {radius:0,width:0,height:0};
+		this.size		= {radius:10,width:10,height:10};
 		this.dist		= {x:0,y:0,z:0};
 
 		/* Mouvements */
