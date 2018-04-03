@@ -42,3 +42,8 @@ a{
 a:hover{
 	border: 2px solid #AAA;
 }
+
+.bouttonMenu{
+	margin-top: 2.5%;
+	font-size: 2em;
+}
