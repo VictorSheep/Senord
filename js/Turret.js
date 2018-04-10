@@ -34,7 +34,7 @@ class Turret{
 	init(){
 		/* la range */
 		this.rangeRingGeometry 	= new THREE.RingGeometry( this.range, this.range+2, 32 );
-		this.rangeRingMaterial 	= new THREE.MeshBasicMaterial( {color: 0x00ffff,transparent:true,opacity:0.6} );
+		this.rangeRingMaterial 	= new THREE.MeshBasicMaterial( {color: 0x00ffff,transparent:true,opacity:0.15} );
 		this.rangeRing			= new THREE.Mesh( this.rangeRingGeometry, this.rangeRingMaterial );
 		/* le temps restant */
 		this.timeGeometry 		= new THREE.RingGeometry( this.range, this.range+2, 32 );
