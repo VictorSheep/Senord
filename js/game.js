@@ -24,7 +24,7 @@ var game = {
 		scene.add( light );
 
 		//création de l'instance de l'usine
-		this.elements.factory.push( new Factory({x:0,y:0,z:-10},300,{x:0,y:0,z:0},{width:40,height:40,depth:40}, 10));
+		this.elements.factory.push( new Factory({x:0,y:0,z:-50},300,{x:0,y:0,z:0},{width:40,height:40,depth:40}, 10));
 		//Pool de projectilles
 		for (let i = 0; i < 200; i++) {
 			this.elements.bullet.push( new Bullet() );
