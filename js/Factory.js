@@ -46,7 +46,7 @@ class Factory{
 
 		this.obj.position.set(this.pos.x,this.pos.y,this.pos.z);
 
-		this.obj.scale.set(this.size.width,this.size.height,this.size.depht);
+		this.obj.scale.set(this.size.width,this.size.height,this.size.depth);
 	}
 	generateTurret(){
 		if (game.getNbIsDisp("turret")<this.nbTMax) {
