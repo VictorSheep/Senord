@@ -13,6 +13,7 @@ var game = {
 	round:1,
 	score:0,
 	endGame:false,
+	isLoadingGameOver: false,
 	init(){
 
 		let inputsGamepadStates = inputsGamepad.gamepadOne();
@@ -130,7 +131,10 @@ var game = {
 
     	//vérifie la défaite
     	if (this.endGame) {
-    		window.location.replace("./gameOver.html");
+    		if (!this.isLoadingGameOver) {
+    			window.location.replace("./gameOver.html");
+    			this.isLoadingGameOver = true;
+    		}
     	}
     	this.nbEnemy = this.getNbIsDisp("enemy");
     	if (this.nbEnemy<=0){
